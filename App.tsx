@@ -3,6 +3,8 @@ import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import Navigation from "./src/Navigation/Index";
+import { Provider } from "react-redux";
+import AuthStore from "./store";
 
 export default function App() {
   // use fonts
@@ -18,10 +20,12 @@ export default function App() {
 
   return (
     <>
-      <SafeAreaProvider>
-        <Navigation />
-        <StatusBar />
-      </SafeAreaProvider>
+      <Provider store={AuthStore}>
+        <SafeAreaProvider>
+          <Navigation />
+          <StatusBar />
+        </SafeAreaProvider>
+      </Provider>
     </>
   );
 }

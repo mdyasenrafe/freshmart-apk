@@ -1,8 +1,13 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, TextStyle, TouchableOpacity } from "react-native";
 import OwnText from "./Text/OwnText";
 import { Colors } from "./Theme/Color";
+
+interface buttonProps {
+  title: string;
+  style?: TextStyle;
+  onPress?: () => void;
+}
 
 export default function Button(props: buttonProps) {
   const { title, style: customStyle, onPress } = props;
