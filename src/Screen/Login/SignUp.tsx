@@ -1,17 +1,23 @@
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TextInput,
+  Pressable,
+} from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import OwnText from "../../Components/Text/OwnText";
 import { Typrography } from "../../Components/Theme/Typrography";
 import { Colors } from "../../Components/Theme/Color";
-import { Feather } from "@expo/vector-icons";
+
 import Button from "../../Components/Button";
 import { Input, InputPassword } from "../../Components/Input";
 
-export default function Login({ navigation }: { navigation: any }) {
+export default function SignUp({ navigation }: any) {
   const [passwordEye, setPassowrdEye] = useState<boolean>(false);
-
   return (
     <ScrollView>
       <SafeAreaView style={{ flex: 1, paddingHorizontal: 16 }}>
@@ -22,11 +28,18 @@ export default function Login({ navigation }: { navigation: any }) {
           />
         </View>
         <View>
-          <OwnText preset="h1">Log in</OwnText>
+          <OwnText preset="h1">Sign up</OwnText>
           <OwnText style={{ paddingTop: 12 }}>
-            Enter Your Email and Password
+            Enter your credentials for signup
           </OwnText>
           <View style={styles.input_area}>
+            <TextInput />
+            <Input
+              keyboardType="email-address"
+              autoCapitalize={"none"}
+              placeholder="Email"
+              // onChangeText={(e) => console.log(e)}
+            />
             <Input
               keyboardType="email-address"
               autoCapitalize={"none"}
@@ -40,14 +53,14 @@ export default function Login({ navigation }: { navigation: any }) {
             />
           </View>
           <View>
-            <Button title="Log in" style={styles.button} />
-            <Pressable onPress={() => navigation.navigate("Signup")}>
+            <Button title="Sign up" style={styles.button} />
+            <Pressable onPress={() => navigation.navigate("Login")}>
               <View style={styles.already_acceount}>
                 <OwnText style={{ fontFamily: Typrography.medium }}>
-                  Don't have an account?{" "}
+                  Alredy have an account?{" "}
                 </OwnText>
                 <OwnText preset="h6" style={{ color: "green" }}>
-                  Sign up
+                  Login
                 </OwnText>
               </View>
             </Pressable>
@@ -72,7 +85,14 @@ const styles = StyleSheet.create({
   input_area: {
     paddingTop: 25,
   },
-
+  input: {
+    width: "100%",
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.borderColor,
+    height: 48,
+    marginBottom: 24,
+    fontFamily: Typrography.regular,
+  },
   button: {
     borderRadius: 16,
     width: "100%",

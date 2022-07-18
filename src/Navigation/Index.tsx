@@ -1,4 +1,10 @@
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../Screen/Home";
@@ -11,6 +17,9 @@ import { Typrography } from "../Components/Theme/Typrography";
 import { Colors } from "../Components/Theme/Color";
 import OwnText from "../Components/Text/OwnText";
 import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
+import Button from "../Components/Button";
+import Login from "../Screen/Login/Login";
+import SignUp from "../Screen/Login/SignUp";
 
 const Tab = createBottomTabNavigator();
 
@@ -66,7 +75,10 @@ const ProfileStackScreen = () => {
   );
 };
 
-const StartScreen = () => {
+const StartScreen = ({ navigation }: any) => {
+  const handleStarted = (): any => {
+    navigation.navigate("Signup");
+  };
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -77,6 +89,15 @@ const StartScreen = () => {
         <OwnText preset="h1" style={styles.text}>
           Welcome {"\n"} To FreshMart
         </OwnText>
+        <OwnText style={styles.startText}>
+          Buy your daily groccery easily. the easiest way to share your family's
+          groccery shopping
+        </OwnText>
+        <Button
+          style={{ marginVertical: 36 }}
+          title="Get started"
+          onPress={handleStarted}
+        />
       </ImageBackground>
     </View>
   );
@@ -101,7 +122,7 @@ const TabBarIcon = ({
 };
 
 export default function Navigation() {
-  const user: boolean = true;
+  const user: boolean = false;
   const stack = createStackNavigator();
 
   const AppTheme: any = {
@@ -117,8 +138,10 @@ export default function Navigation() {
       <NavigationContainer theme={AppTheme}>
         {!user ? (
           <>
-            <stack.Navigator>
+            <stack.Navigator screenOptions={{ headerShown: false }}>
               <stack.Screen name="start" component={StartScreen} />
+              <stack.Screen name="Login" component={Login} />
+              <stack.Screen name="Signup" component={SignUp} />
             </stack.Navigator>
           </>
         ) : (
@@ -214,6 +237,11 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.white,
     paddingVertical: 16,
+    textAlign: "center",
+  },
+  startText: {
+    color: Colors.black,
+    paddingHorizontal: 10,
     textAlign: "center",
   },
 });

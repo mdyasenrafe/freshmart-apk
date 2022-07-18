@@ -19,6 +19,10 @@ export const presets = {
     ...BOLD,
     fontSize: 48,
   },
+  h6: {
+    ...MEDIUM,
+    fontSize: 18,
+  },
 };
 
 export type TextPresets = keyof typeof presets;
