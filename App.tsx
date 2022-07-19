@@ -19,13 +19,11 @@ export default function App() {
   }
 
   return (
-    <>
-      <Provider store={AuthStore}>
-        <SafeAreaProvider>
-          <Navigation />
-          <StatusBar />
-        </SafeAreaProvider>
-      </Provider>
-    </>
+    <Provider store={AuthStore}>
+      <SafeAreaProvider>
+        <Navigation />
+        <StatusBar />
+      </SafeAreaProvider>
+    </Provider>
   );
 }

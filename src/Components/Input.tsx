@@ -1,5 +1,5 @@
 import { StyleSheet, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { Typrography } from "./Theme/Typrography";
 import { Colors } from "./Theme/Color";
 import { Feather } from "@expo/vector-icons";
@@ -10,6 +10,7 @@ export function Input(props: TextInputProps) {
     <TextInput
       keyboardType={keyboardType}
       autoCapitalize={autoCapitalize}
+      onChangeText={onChangeText}
       style={styles.input}
       placeholder={placeholder}
       placeholderTextColor="black"
