@@ -1,11 +1,5 @@
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  Pressable,
-} from "react-native";
-import React from "react";
+import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../Screen/Home";
 import Products from "../Screen/Products/Products";
@@ -20,6 +14,8 @@ import { Ionicons, Feather, FontAwesome } from "@expo/vector-icons";
 import Button from "../Components/Button";
 import Login from "../Screen/Login/Login";
 import SignUp from "../Screen/Login/SignUp";
+import { useDispatch, useSelector } from "react-redux";
+import { OnAuthChange } from "../Redux/Action";
 
 const Tab = createBottomTabNavigator();
 
@@ -122,7 +118,6 @@ const TabBarIcon = ({
 };
 
 export default function Navigation() {
-  const user: boolean = false;
   const stack = createStackNavigator();
 
   const AppTheme: any = {
@@ -132,11 +127,18 @@ export default function Navigation() {
       background: "#fff",
     },
   };
+  const dispatch: any = useDispatch();
+
+  const { email } = useSelector((state: any) => state);
+
+  useEffect(() => {
+    dispatch(OnAuthChange());
+  }, []);
 
   return (
     <>
       <NavigationContainer theme={AppTheme}>
-        {!user ? (
+        {!email?.user && !email?.isLoading ? (
           <>
             <stack.Navigator screenOptions={{ headerShown: false }}>
               <stack.Screen name="start" component={StartScreen} />

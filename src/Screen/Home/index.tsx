@@ -1,10 +1,15 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Category from "./Category";
+import ExclusiveOffer from "./ExclusiveOffer";
 
 export default function Home() {
   return (
-    <View>
+    <SafeAreaView>
       <Text>Home</Text>
-    </View>
+      <Category />
+      <ExclusiveOffer />
+    </SafeAreaView>
   );
 }

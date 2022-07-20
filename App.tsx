@@ -5,6 +5,8 @@ import { useFonts } from "expo-font";
 import Navigation from "./src/Navigation/Index";
 import { Provider } from "react-redux";
 import AuthStore from "./store";
+import Toast from "react-native-toast-message";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function App() {
   // use fonts
@@ -23,6 +25,7 @@ export default function App() {
       <SafeAreaProvider>
         <Navigation />
         <StatusBar />
+        <Toast />
       </SafeAreaProvider>
     </Provider>
   );

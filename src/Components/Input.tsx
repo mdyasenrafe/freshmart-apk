@@ -1,17 +1,24 @@
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, TextStyle, View } from "react-native";
 import React from "react";
 import { Typrography } from "./Theme/Typrography";
 import { Colors } from "./Theme/Color";
 import { Feather } from "@expo/vector-icons";
-
+interface TextInputProps {
+  placeholder: string;
+  onChangeText?: (text: string) => void;
+  keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
+  autoCapitalize?: "none" | "sentences" | "words" | "characters";
+  style?: TextStyle;
+}
 export function Input(props: TextInputProps) {
-  const { placeholder, autoCapitalize, onChangeText, keyboardType } = props;
+  const { placeholder, autoCapitalize, onChangeText, keyboardType, style } =
+    props;
   return (
     <TextInput
       keyboardType={keyboardType}
       autoCapitalize={autoCapitalize}
       onChangeText={onChangeText}
-      style={styles.input}
+      style={[styles.input, style]}
       placeholder={placeholder}
       placeholderTextColor="black"
     />

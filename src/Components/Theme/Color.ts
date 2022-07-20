@@ -3,4 +3,5 @@ export const Colors: ColorType = {
   black: "#000000",
   white: "#FFFFFF",
   borderColor: "#E2E2E2",
+  error: "#ff3333",
 };

@@ -39,11 +39,11 @@ const emailFaill = (state: IState, action: any) => {
   };
 };
 
-export const Reduccer = (state: IState, action: any) => {
+export const Reduccer = (state: IState = intialState, action: any) => {
   switch (action?.type) {
     case actionTypes.EMAIL_START:
       return emailStart(state, action);
-    case actionTypes.EMAIL_START:
+    case actionTypes.EMAIL_SUCCESS:
       return emailSuccess(state, action);
     case actionTypes.EMAIL_FAILURE:
       return emailFaill(state, action);
