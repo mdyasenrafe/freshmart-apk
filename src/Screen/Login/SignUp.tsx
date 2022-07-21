@@ -15,7 +15,7 @@ import { Colors } from "../../Components/Theme/Color";
 import Toast from "react-native-toast-message";
 import Button from "../../Components/Button";
 import { Input, InputPassword } from "../../Components/Input";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 const validator = require("validator");
 import {
   EmailSignUp,

@@ -1,4 +1,10 @@
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../Screen/Home";
@@ -16,18 +22,26 @@ import Login from "../Screen/Login/Login";
 import SignUp from "../Screen/Login/SignUp";
 import { useDispatch, useSelector } from "react-redux";
 import { OnAuthChange } from "../Redux/Action";
+import Category from "../Screen/Home/Category";
 
 const Tab = createBottomTabNavigator();
 
 const HomeStack = createStackNavigator();
 const HomeStackScreen = () => {
   return (
-    <HomeStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <HomeStack.Screen name="Home" component={Home} />
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        name="Category"
+        component={Category}
+        initialParams={{ count: 6 }}
+      />
     </HomeStack.Navigator>
   );
 };
@@ -90,7 +104,11 @@ const StartScreen = ({ navigation }: any) => {
           groccery shopping
         </OwnText>
         <Button
-          style={{ marginVertical: 36 }}
+          style={{
+            marginVertical: 36,
+            width: "95%",
+            borderRadius: 14,
+          }}
           title="Get started"
           onPress={handleStarted}
         />

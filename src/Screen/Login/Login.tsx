@@ -63,7 +63,6 @@ export default function Login({ navigation }: { navigation: any }) {
             }
           })
           .catch((err: any) => {
-            console.log(err);
             dispatch(EmailFailAction(err.message));
           });
       } else {

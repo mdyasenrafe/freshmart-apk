@@ -24,7 +24,7 @@ export const EmailSuccessAction = (user: any) => {
 };
 export const EmailFailAction = (error: any) => {
   return {
-    type: actionTypes.EMAIL_SUCCESS,
+    type: actionTypes.EMAIL_FAILURE,
     user: null,
     error: error,
   };
@@ -46,7 +46,6 @@ export const OnAuthChange = () => (dispatch: any, getState: any) => {
           email: user.email,
         })
         .then((res: any) => {
-          console.log(res.data);
           dispatch(EmailSuccessAction(res.data.data));
         })
         .catch((err: any) => {

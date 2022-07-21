@@ -41,4 +41,6 @@ interface CategroyDataTypes {
   title: string;
   photo?: any;
   slug: string;
+  color?: string;
+  borderColor?: string;
 }

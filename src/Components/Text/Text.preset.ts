@@ -19,6 +19,22 @@ export const presets = {
     ...BOLD,
     fontSize: 48,
   },
+  h2: {
+    ...BOLD,
+    fontSize: 36,
+  },
+  h3: {
+    ...BOLD,
+    fontSize: 30,
+  },
+  h4: {
+    ...BOLD,
+    fontSize: 26,
+  },
+  h5: {
+    ...BOLD,
+    fontSize: 20,
+  },
   h6: {
     ...MEDIUM,
     fontSize: 18,
