@@ -2,19 +2,19 @@ import { Text, ScrollView } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Category from "./Category";
-import ExclusiveOffer from "./ExclusiveOffer";
-import BestSeller from "./BestSeller";
 import Banner from "./Banner";
+import CommonProducts from "./CommonProducts";
+import { HeaderComponent } from "../../Components/HeaderComponent";
 
 export default function Home({ navigation }: any) {
   return (
-    <SafeAreaView>
-      <Text>Home</Text>
+    <>
+      <HeaderComponent navigatation={navigation} routes={"Home"} />
       <ScrollView>
         <Banner />
         <Category button={true} />
-        <BestSeller />
+        <CommonProducts />
       </ScrollView>
-    </SafeAreaView>
+    </>
   );
 }

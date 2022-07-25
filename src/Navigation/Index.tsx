@@ -3,8 +3,8 @@ import {
   Text,
   ImageBackground,
   StyleSheet,
-  Pressable,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -30,18 +30,22 @@ const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const HomeStackScreen = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Category" component={Category} />
       <HomeStack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: false,
-        }}
+        options={{ title: "Best Seller" }}
+        name="Best_Seller"
+        component={Products}
       />
       <HomeStack.Screen
-        name="Category"
-        component={Category}
-        initialParams={{ count: 6 }}
+        options={{ title: "Trending Products" }}
+        name="Trending_Products"
+        component={Products}
       />
     </HomeStack.Navigator>
   );
@@ -183,6 +187,7 @@ export default function Navigation() {
               <Tab.Screen
                 options={{
                   title: "Home",
+
                   tabBarIcon: ({ color }) => (
                     <TabBarIcon
                       fontFamily="Ionicons"
@@ -195,9 +200,11 @@ export default function Navigation() {
                 component={HomeStackScreen}
               />
               <Tab.Screen
+                // go back to home screen
                 options={{
                   title: "Products",
-                  tabBarIcon: ({ color }) => (
+
+                  tabBarIcon: ({ color }: any) => (
                     <TabBarIcon
                       fontFamily="FontAwesome"
                       name={"shopping-basket"}

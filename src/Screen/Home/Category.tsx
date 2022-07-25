@@ -4,6 +4,7 @@ import { CategoryData } from "../../Data/CategoryData";
 import OwnText from "../../Components/Text/OwnText";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../Components/Button";
+import { HeaderComponent } from "../../Components/HeaderComponent";
 
 export default function Category({ button }: { button: boolean }) {
   let count: number;
@@ -15,33 +16,43 @@ export default function Category({ button }: { button: boolean }) {
 
   const navigation: any = useNavigation();
   return (
-    <View style={{ flex: 1, marginVertical: 18 }}>
-      <OwnText preset="h2" style={{ paddingLeft: 14 }}>
-        Explore by category
-      </OwnText>
-      <View style={styles.category_area}>
-        {CategoryData.slice(0, count).map((data: CategroyDataTypes, index) => (
-          <View
-            key={index}
-            style={[
-              styles.category,
-              { backgroundColor: data.color, borderColor: data.borderColor },
-            ]}
-          >
-            <Image style={styles.category_img} source={data.photo} />
-            <OwnText preset="h4" style={styles.categroy_text}>
-              {data.title}
-            </OwnText>
-          </View>
-        ))}
-        {button && (
-          <Button
-            onPress={() => navigation.navigate("Category")}
-            title="See More"
-          />
-        )}
+    <>
+      {!button && (
+        <HeaderComponent navigation={navigation} routes={"Categroy"} />
+      )}
+      <View style={{ flex: 1, marginVertical: 18 }}>
+        <OwnText preset="h2" style={{ paddingLeft: 14 }}>
+          Explore by category
+        </OwnText>
+        <View style={styles.category_area}>
+          {CategoryData.slice(0, count).map(
+            (data: CategroyDataTypes, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.category,
+                  {
+                    backgroundColor: data.color,
+                    borderColor: data.borderColor,
+                  },
+                ]}
+              >
+                <Image style={styles.category_img} source={data.photo} />
+                <OwnText preset="h4" style={styles.categroy_text}>
+                  {data.title}
+                </OwnText>
+              </View>
+            )
+          )}
+          {button && (
+            <Button
+              onPress={() => navigation.navigate("Category")}
+              title="See More"
+            />
+          )}
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 

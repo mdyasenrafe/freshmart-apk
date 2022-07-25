@@ -9,7 +9,7 @@ import Carousel from "react-native-snap-carousel";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-export default function BestSeller() {
+export default function CommonProducts() {
   const sliderWidth = Dimensions.get("window").width;
   const itemWidth = sliderWidth / 2;
 
@@ -37,13 +37,15 @@ export default function BestSeller() {
     );
   };
 
-  const navigaton: any = useNavigation();
+  const navigation: any = useNavigation();
 
   return (
     <View style={{ flex: 1, marginVertical: 24, marginHorizontal: 16 }}>
       <View style={styles.upperArea}>
         <OwnText preset="h3">Best Sellers</OwnText>
-        <OwnText style={{ color: Colors.primary }}>See All </OwnText>
+        <TouchableOpacity onPress={() => navigation.navigate("Best_Seller")}>
+          <OwnText style={{ color: Colors.primary }}>See All</OwnText>
+        </TouchableOpacity>
       </View>
       <View>
         <Carousel
