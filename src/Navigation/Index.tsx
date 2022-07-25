@@ -4,6 +4,7 @@ import {
   ImageBackground,
   StyleSheet,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -153,18 +154,18 @@ export default function Navigation() {
     dispatch(OnAuthChange());
   }, []);
 
+  if (email?.isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <>
       <NavigationContainer theme={AppTheme}>
-        {!email?.user && !email?.isLoading ? (
-          <>
-            <stack.Navigator screenOptions={{ headerShown: false }}>
-              <stack.Screen name="start" component={StartScreen} />
-              <stack.Screen name="Login" component={Login} />
-              <stack.Screen name="Signup" component={SignUp} />
-            </stack.Navigator>
-          </>
-        ) : (
+        {email?.user ? (
           <>
             <Tab.Navigator
               initialRouteName="Home"
@@ -236,6 +237,14 @@ export default function Navigation() {
                 component={ProfileStackScreen}
               />
             </Tab.Navigator>
+          </>
+        ) : (
+          <>
+            <stack.Navigator screenOptions={{ headerShown: false }}>
+              <stack.Screen name="start" component={StartScreen} />
+              <stack.Screen name="Login" component={Login} />
+              <stack.Screen name="Signup" component={SignUp} />
+            </stack.Navigator>
           </>
         )}
       </NavigationContainer>

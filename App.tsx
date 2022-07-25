@@ -6,7 +6,12 @@ import Navigation from "./src/Navigation/Index";
 import { Provider } from "react-redux";
 import AuthStore from "./store";
 import Toast from "react-native-toast-message";
-import { ScrollView } from "react-native-gesture-handler";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs([
+  "ViewPropTypes will be removed",
+  "ColorPropType will be removed",
+]);
 
 export default function App() {
   // use fonts

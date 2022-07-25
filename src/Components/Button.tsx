@@ -7,13 +7,14 @@ interface buttonProps {
   title: string;
   style?: TextStyle;
   onPress?: () => void;
+  color?: string;
 }
 
 export default function Button(props: buttonProps) {
-  const { title, style: customStyle, onPress } = props;
+  const { title, style: customStyle, onPress, color } = props;
   return (
     <TouchableOpacity style={[styles.button, customStyle]} onPress={onPress}>
-      <OwnText style={{ color: Colors.white }}>{title}</OwnText>
+      <OwnText style={{ color: color || Colors.white }}>{title}</OwnText>
     </TouchableOpacity>
   );
 }

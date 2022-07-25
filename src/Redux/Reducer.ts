@@ -22,7 +22,7 @@ const emailSuccess = (state: IState, action: any) => {
   return {
     ...state,
     email: {
-      isLoading: true,
+      isLoading: false,
       user: action.user,
       error: null,
     },
@@ -32,7 +32,7 @@ const emailFaill = (state: IState, action: any) => {
   return {
     ...state,
     email: {
-      isLoading: true,
+      isLoading: false,
       user: null,
       error: action.error,
     },
