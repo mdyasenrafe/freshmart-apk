@@ -15,7 +15,7 @@ export default function Category({ button }: { button: boolean }) {
 
   const navigation: any = useNavigation();
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, marginVertical: 18 }}>
       <OwnText preset="h2" style={{ paddingLeft: 14 }}>
         Explore by category
       </OwnText>

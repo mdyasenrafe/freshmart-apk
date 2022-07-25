@@ -3,7 +3,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Category from "./Category";
 import ExclusiveOffer from "./ExclusiveOffer";
-import BestProduct from "./BestProduct";
+import BestSeller from "./BestSeller";
 import Banner from "./Banner";
 
 export default function Home({ navigation }: any) {
@@ -13,8 +13,7 @@ export default function Home({ navigation }: any) {
       <ScrollView>
         <Banner />
         <Category button={true} />
-        <ExclusiveOffer />
-        <BestProduct />
+        <BestSeller />
       </ScrollView>
     </SafeAreaView>
   );

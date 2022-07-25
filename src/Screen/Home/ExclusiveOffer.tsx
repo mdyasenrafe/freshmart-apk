@@ -19,23 +19,6 @@ export default function ExclusiveOffer() {
         <Text>ExclusiveOffer</Text>
         <Text>ExclusiveOffer</Text>
         <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
-        <Text>ExclusiveOffer</Text>
       </View>
     </ScrollView>
   );

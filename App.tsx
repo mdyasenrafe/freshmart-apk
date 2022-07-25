@@ -8,11 +8,6 @@ import AuthStore from "./store";
 import Toast from "react-native-toast-message";
 import { LogBox } from "react-native";
 
-LogBox.ignoreLogs([
-  "ViewPropTypes will be removed",
-  "ColorPropType will be removed",
-]);
-
 export default function App() {
   // use fonts
   const [loaded] = useFonts({
