@@ -37,14 +37,10 @@ const HomeStackScreen = () => {
     >
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Category" component={Category} />
+      <HomeStack.Screen name="Products/best_seller" component={Products} />
+      <HomeStack.Screen name="Products/new_products" component={Products} />
       <HomeStack.Screen
-        options={{ title: "Best Seller" }}
-        name="Best_Seller"
-        component={Products}
-      />
-      <HomeStack.Screen
-        options={{ title: "Trending Products" }}
-        name="Trending_Products"
+        name="Products/trending_products"
         component={Products}
       />
     </HomeStack.Navigator>
@@ -59,7 +55,11 @@ const ProductStackScreen = () => {
         headerShown: false,
       }}
     >
-      <HomeStack.Screen name="Products" component={Products} />
+      <HomeStack.Screen
+        name="Products"
+        initialParams={{ title: "Products", slug: "/" }}
+        component={Products}
+      />
     </ProductStack.Navigator>
   );
 };

@@ -12,42 +12,40 @@ import { useEffect } from "react";
 import { filterProductAPi } from "../../Api";
 import { useState } from "react";
 
+export const ProductRender = ({ item, index }: any) => {
+  return (
+    <View key={index} style={styles.best_seller}>
+      <Image
+        source={{
+          uri: item.photo,
+        }}
+        style={styles.best_seller_img}
+      />
+      <OwnText preset="h5" style={{ paddingLeft: 14 }}>
+        {item.name}
+      </OwnText>
+      <View style={styles.price_area}>
+        <OwnText preset="h5" style={{ paddingLeft: 14 }}>
+          $ {item.price}
+        </OwnText>
+        <TouchableOpacity style={styles.plus_area}>
+          <AntDesign name="plus" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
 export default function CommonProducts({
   title,
   slug,
-  count,
 }: {
   title?: string;
   slug?: string;
-  count?: number;
 }) {
   const sliderWidth = Dimensions.get("window").width;
   const itemWidth = sliderWidth / 2;
   const [products, setProducts] = useState<ProductsTypes[]>([]);
-
-  const RenderItem = ({ item, index }: any) => {
-    return (
-      <View key={index} style={styles.best_seller}>
-        <Image
-          source={{
-            uri: item.photo,
-          }}
-          style={styles.best_seller_img}
-        />
-        <OwnText preset="h5" style={{ paddingLeft: 14 }}>
-          {item.name}
-        </OwnText>
-        <View style={styles.price_area}>
-          <OwnText preset="h5" style={{ paddingLeft: 14 }}>
-            $ {item.price}
-          </OwnText>
-          <TouchableOpacity style={styles.plus_area}>
-            <AntDesign name="plus" size={24} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
 
   const navigation: any = useNavigation();
 
@@ -57,21 +55,28 @@ export default function CommonProducts({
 
   const fetchData = async () => {
     const response = await filterProductAPi({ filter: slug });
-    setProducts(response.data);
+    setProducts(response.data.slice(0, 4));
   };
 
   return (
     <View style={{ flex: 1, marginVertical: 24, marginHorizontal: 16 }}>
       <View style={styles.upperArea}>
         <OwnText preset="h3">{title}</OwnText>
-        <TouchableOpacity onPress={() => navigation.navigate("Best_Seller")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(`Products/${slug}`, {
+              title: title,
+              slug: slug,
+            })
+          }
+        >
           <OwnText style={{ color: Colors.primary }}>See All</OwnText>
         </TouchableOpacity>
       </View>
       <View>
         <Carousel
           data={products}
-          renderItem={RenderItem}
+          renderItem={ProductRender}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
           removeClippedSubviews={false}
@@ -88,14 +93,6 @@ export default function CommonProducts({
 const styles = StyleSheet.create({
   wrapper: {
     height: 250,
-  },
-  best_seller_area: {
-    marginTop: 16,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
   },
   best_seller: {
     width: 170,

@@ -13,13 +13,9 @@ export default function Home({ navigation }: any) {
       <ScrollView>
         <Banner />
         <Category button={true} />
-        <CommonProducts title={"Best Sellers"} slug="best_seller" count={6} />
-        <CommonProducts
-          title={"Trending Products"}
-          slug="trending_products"
-          count={6}
-        />
-        <CommonProducts title={"New Products"} slug="new_products" count={6} />
+        <CommonProducts title={"Best Sellers"} slug="best_seller" />
+        <CommonProducts title={"Trending Products"} slug="trending_products" />
+        <CommonProducts title={"New Products"} slug="new_products" />
       </ScrollView>
     </>
   );
