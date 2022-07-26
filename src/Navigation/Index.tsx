@@ -46,6 +46,7 @@ const HomeStackScreen = () => {
         name="Products/trending_products"
         component={Products}
       />
+      <CartStack.Screen name="Cart" component={Cart} />
     </HomeStack.Navigator>
   );
 };
@@ -64,6 +65,7 @@ const ProductStackScreen = () => {
         component={Products}
       />
       <ProductStack.Screen name="ProductDetails" component={ProductDetails} />
+      <CartStack.Screen name="Cart" component={Cart} />
     </ProductStack.Navigator>
   );
 };

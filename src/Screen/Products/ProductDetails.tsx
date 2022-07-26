@@ -6,11 +6,42 @@ import OwnText from "../../Components/Text/OwnText";
 import { Colors } from "../../Components/Theme/Color";
 import Button from "../../Components/Button";
 import CommonProducts from "../Home/CommonProducts";
+import { useSelector } from "react-redux";
+import { addCartApi } from "../../Api";
+import Toast from "react-native-toast-message";
 
 export default function ProductDetails({ navigation, route }: any) {
   const productDetails = route?.params?.item;
+  const [quantity, setQuantity] = React.useState(1);
 
-  console.log(productDetails);
+  const { email } = useSelector((state: any) => state);
+
+  const handleAddCart = () => {
+    let addCartBodyData = {
+      userName: email?.user?.name,
+      userEmail: email?.user?.email,
+      userId: email?.user?._id,
+      productId: productDetails._id,
+      productName: productDetails.name,
+      productPrice: productDetails.price,
+      productPhoto: productDetails.photo,
+      productQuantity: quantity,
+    };
+
+    const res: any = addCartApi(addCartBodyData);
+    if (res?.error) {
+      Toast.show({
+        type: "error",
+        text1: res.error,
+      });
+    } else {
+      Toast.show({
+        type: "success",
+        text1: "Added to cart",
+      });
+    }
+    navigation.navigate("Cart");
+  };
 
   return (
     <>
@@ -52,7 +83,11 @@ export default function ProductDetails({ navigation, route }: any) {
           </View>
         </View>
       </ScrollView>
-      <Button style={styles.button} title="Add To Cart" />
+      <Button
+        onPress={handleAddCart}
+        style={styles.button}
+        title="Add To Cart"
+      />
     </>
   );
 }
