@@ -30,9 +30,7 @@ export const HeaderComponent = ({ routes }: any) => {
           </Text>
         </TouchableOpacity>
       )}
-      <OwnText style={{ fontFamily: Typrography.bold }} preset="h6">
-        {routes}
-      </OwnText>
+      <OwnText preset="h5">{routes}</OwnText>
       <View></View>
     </SafeAreaView>
   );

@@ -37,6 +37,7 @@ const HomeStackScreen = () => {
     >
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Category" component={Category} />
+      <HomeStack.Screen name="Products" component={Products} />
       <HomeStack.Screen name="Products/best_seller" component={Products} />
       <HomeStack.Screen name="Products/new_products" component={Products} />
       <HomeStack.Screen
@@ -57,7 +58,7 @@ const ProductStackScreen = () => {
     >
       <HomeStack.Screen
         name="Products"
-        initialParams={{ title: "Products", slug: "" }}
+        initialParams={{ title: "Products", slug: "", category: false }}
         component={Products}
       />
     </ProductStack.Navigator>
@@ -140,6 +141,14 @@ const TabBarIcon = ({
   }
 };
 
+export const LoadingSpinner = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+  );
+};
+
 export default function Navigation() {
   const stack = createStackNavigator();
 
@@ -159,11 +168,7 @@ export default function Navigation() {
   }, []);
 
   if (email?.isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingSpinner />;
   }
 
   return (

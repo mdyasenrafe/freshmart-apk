@@ -6,7 +6,7 @@ const apiUrl = {
   signUp: "user/signup",
   signIn: "user/signin",
   getUser: "user/getuser",
-  filterProduct: "product/filterProducts",
+  filterProduct: "product/filter",
 };
 
 export const SignupApi = async (body) => {

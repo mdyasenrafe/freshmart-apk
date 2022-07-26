@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { CategoryData } from "../../Data/CategoryData";
 import OwnText from "../../Components/Text/OwnText";
@@ -27,7 +27,14 @@ export default function Category({ button }: { button: boolean }) {
         <View style={styles.category_area}>
           {CategoryData.slice(0, count).map(
             (data: CategroyDataTypes, index) => (
-              <View
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Products", {
+                    slug: data.slug,
+                    title: data.title,
+                    category: true,
+                  })
+                }
                 key={index}
                 style={[
                   styles.category,
@@ -41,7 +48,7 @@ export default function Category({ button }: { button: boolean }) {
                 <OwnText preset="h4" style={styles.categroy_text}>
                   {data.title}
                 </OwnText>
-              </View>
+              </TouchableOpacity>
             )
           )}
           {button && (

@@ -67,6 +67,7 @@ export default function CommonProducts({
             navigation.navigate(`Products/${slug}`, {
               title: title,
               slug: slug,
+              category: false,
             })
           }
         >
