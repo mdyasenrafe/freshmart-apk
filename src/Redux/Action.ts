@@ -51,6 +51,8 @@ export const OnAuthChange = () => (dispatch: any, getState: any) => {
         .catch((err: any) => {
           dispatch(EmailFailAction(err.message));
         });
+    } else {
+      dispatch(EmailFailAction(null));
     }
   });
 };
