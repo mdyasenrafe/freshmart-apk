@@ -46,6 +46,7 @@ interface CategroyDataTypes {
 }
 
 interface ProductsTypes {
+  _id: string;
   categroy: string;
   createAt: string;
   description: string;

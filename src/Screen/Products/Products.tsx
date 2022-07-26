@@ -32,8 +32,8 @@ export default function Products({ navigation, route }: any) {
         <View style={{ flex: 1, marginBottom: 24 }}>
           <View style={styles.product_area}>
             {products.map((item, index) => (
-              <View style={{ marginBottom: 16 }}>
-                <ProductRender item={item} index={index} />
+              <View key={index} style={{ marginBottom: 16 }}>
+                <ProductRender item={item} index={item._id} />
               </View>
             ))}
           </View>

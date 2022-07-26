@@ -57,7 +57,7 @@ const ProductStackScreen = () => {
     >
       <HomeStack.Screen
         name="Products"
-        initialParams={{ title: "Products", slug: "/" }}
+        initialParams={{ title: "Products", slug: "" }}
         component={Products}
       />
     </ProductStack.Navigator>
