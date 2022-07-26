@@ -6,11 +6,11 @@ import { Colors } from "../../Components/Theme/Color";
 import { AntDesign } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { HeaderComponent } from "../../Components/HeaderComponent";
-import { ProductRender } from "../Home/CommonProducts";
 import { useState } from "react";
 import { useEffect } from "react";
 import { filterProductAPi } from "../../Api";
 import { LoadingSpinner } from "../../Navigation/Index";
+import { ProductRender } from "../../Components/Product.Components";
 
 export default function Products({ navigation, route }: any) {
   const [products, setProducts] = useState<ProductsTypes[]>([]);

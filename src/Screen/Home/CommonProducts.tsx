@@ -1,40 +1,15 @@
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import OwnText from "../../Components/Text/OwnText";
-import { BestSellerData } from "../../Data/BestSellerData";
 import { Colors } from "../../Components/Theme/Color";
-import { AntDesign } from "@expo/vector-icons";
-
+import { AntDesign, Fontisto, MaterialIcons } from "@expo/vector-icons";
 import Carousel from "react-native-snap-carousel";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { filterProductAPi } from "../../Api";
 import { useState } from "react";
-
-export const ProductRender = ({ item, index }: any) => {
-  return (
-    <View key={index} style={styles.best_seller}>
-      <Image
-        source={{
-          uri: item.photo,
-        }}
-        style={styles.best_seller_img}
-      />
-      <OwnText preset="h5" style={{ paddingLeft: 14 }}>
-        {item.name}
-      </OwnText>
-      <View style={styles.price_area}>
-        <OwnText preset="h5" style={{ paddingLeft: 14 }}>
-          $ {item.price}
-        </OwnText>
-        <TouchableOpacity style={styles.plus_area}>
-          <AntDesign name="plus" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
+import { ProductRender } from "../../Components/Product.Components";
 
 export default function CommonProducts({
   title,
@@ -95,6 +70,18 @@ const styles = StyleSheet.create({
   wrapper: {
     height: 250,
   },
+  up_area: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    zIndex: 1,
+    padding: 6,
+    backgroundColor: "#f8ced0",
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   best_seller: {
     width: 170,
     height: 230,
