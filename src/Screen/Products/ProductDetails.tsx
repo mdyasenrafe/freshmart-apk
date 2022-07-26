@@ -1,5 +1,6 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
+import { AntDesign } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { HeaderComponent } from "../../Components/HeaderComponent";
 import OwnText from "../../Components/Text/OwnText";
@@ -43,44 +44,73 @@ export default function ProductDetails({ navigation, route }: any) {
     navigation.navigate("Cart");
   };
 
+  const handleAdd = () => {
+    setQuantity(quantity + 1);
+  };
+  const handleMinus = () => {
+    setQuantity(quantity - 1);
+    if (quantity === 1) {
+      Toast.show({
+        type: "error",
+        text1: "Quantity must be greater than 1",
+      });
+      setTimeout(() => {
+        Toast.hide();
+      }, 2000);
+      setQuantity(1);
+      return;
+    }
+  };
+
   return (
     <>
       <HeaderComponent routes="Product Details" />
       <ScrollView>
-        <View>
-          <View style={styles.container}>
-            <Image
-              source={{
-                uri: productDetails.photo,
-              }}
-              style={styles.image}
-            />
-            <View style={styles.price_area}>
-              <View style={{ width: "80%" }}>
-                <OwnText preset="h3">{productDetails.name}</OwnText>
-              </View>
-              <OwnText preset="h4">${productDetails.price}</OwnText>
-            </View>
-            <OwnText style={{ color: Colors.gray, fontSize: 14 }}>
-              Available in stock
-            </OwnText>
-
-            <View style={{ marginTop: 24 }}>
-              <OwnText preset="h4">Details</OwnText>
-              <OwnText
-                style={{ color: Colors.textGray, fontSize: 14, marginTop: 12 }}
-              >
-                {productDetails.description.replace("<br />", `\n`)}
+        <View style={styles.container}>
+          <Image
+            source={{
+              uri: productDetails.photo,
+            }}
+            style={styles.image}
+          />
+          <View style={styles.quantity_area}>
+            <TouchableOpacity onPress={handleMinus}>
+              <OwnText style={styles.icon}>
+                <AntDesign name="minussquare" size={32} color="black" />
               </OwnText>
+            </TouchableOpacity>
+            <OwnText preset="h5">{quantity}</OwnText>
+            <TouchableOpacity onPress={handleAdd}>
+              <OwnText style={styles.icon}>
+                <AntDesign name="plussquare" size={32} color={Colors.primary} />
+              </OwnText>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.price_area}>
+            <View style={{ width: "80%" }}>
+              <OwnText preset="h3">{productDetails.name}</OwnText>
             </View>
+            <OwnText preset="h4">${productDetails.price}</OwnText>
           </View>
+          <OwnText style={{ color: Colors.gray, fontSize: 14 }}>
+            Available in stock
+          </OwnText>
 
-          <View>
-            <CommonProducts
-              title={"Related Products"}
-              slug={productDetails.filter}
-            />
+          <View style={{ marginTop: 24 }}>
+            <OwnText preset="h4">Details</OwnText>
+            <OwnText
+              style={{ color: Colors.textGray, fontSize: 14, marginTop: 12 }}
+            >
+              {productDetails.description.replace("<br />", `\n`)}
+            </OwnText>
           </View>
+        </View>
+
+        <View>
+          <CommonProducts
+            title={"Related Products"}
+            slug={productDetails.filter}
+          />
         </View>
       </ScrollView>
       <Button
@@ -103,10 +133,19 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  quantity_area: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 16,
+  },
   price_area: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  icon: {
+    marginHorizontal: 16,
   },
   button: {
     width: "95%",

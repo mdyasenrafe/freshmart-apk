@@ -8,6 +8,16 @@ const apiUrl = {
   getUser: "user/getuser",
   filterProduct: "product/filter",
   addCart: "cart/addCart",
+  getCart: "cart/getCart",
+};
+
+export const getCartApi = async (body) => {
+  try {
+    const res = await axios.post(url + apiUrl.getCart, body);
+    return res.data;
+  } catch (err) {
+    console.error({ err });
+  }
 };
 
 export const SignupApi = async (body) => {
