@@ -6,6 +6,7 @@ const apiUrl = {
   signUp: "user/signup",
   signIn: "user/signin",
   getUser: "user/getuser",
+  filterProduct: "product/filterProducts",
 };
 
 export const SignupApi = async (body) => {
@@ -19,6 +20,14 @@ export const SignupApi = async (body) => {
 export const signInApi = async (body) => {
   try {
     const res = await axios.post(url + apiUrl.signIn, body);
+    return res.data;
+  } catch (err) {
+    console.error({ err });
+  }
+};
+export const filterProductAPi = async (body) => {
+  try {
+    const res = await axios.post(url + apiUrl.filterProduct, body);
     return res.data;
   } catch (err) {
     console.error({ err });

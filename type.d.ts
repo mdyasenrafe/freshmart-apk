@@ -44,3 +44,15 @@ interface CategroyDataTypes {
   color?: string;
   borderColor?: string;
 }
+
+interface ProductsTypes {
+  categroy: string;
+  createAt: string;
+  description: string;
+  discount?: number;
+  filter?: string;
+  name?: string;
+  photo?: string;
+  price?: number;
+  weight?: number;
+}

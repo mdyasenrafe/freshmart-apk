@@ -8,10 +8,22 @@ import { AntDesign } from "@expo/vector-icons";
 import Carousel from "react-native-snap-carousel";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
+import { filterProductAPi } from "../../Api";
+import { useState } from "react";
 
-export default function CommonProducts() {
+export default function CommonProducts({
+  title,
+  slug,
+  count,
+}: {
+  title?: string;
+  slug?: string;
+  count?: number;
+}) {
   const sliderWidth = Dimensions.get("window").width;
   const itemWidth = sliderWidth / 2;
+  const [products, setProducts] = useState<ProductsTypes[]>([]);
 
   const RenderItem = ({ item, index }: any) => {
     return (
@@ -39,17 +51,26 @@ export default function CommonProducts() {
 
   const navigation: any = useNavigation();
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const response = await filterProductAPi({ filter: slug });
+    setProducts(response.data);
+  };
+
   return (
     <View style={{ flex: 1, marginVertical: 24, marginHorizontal: 16 }}>
       <View style={styles.upperArea}>
-        <OwnText preset="h3">Best Sellers</OwnText>
+        <OwnText preset="h3">{title}</OwnText>
         <TouchableOpacity onPress={() => navigation.navigate("Best_Seller")}>
           <OwnText style={{ color: Colors.primary }}>See All</OwnText>
         </TouchableOpacity>
       </View>
       <View>
         <Carousel
-          data={BestSellerData}
+          data={products}
           renderItem={RenderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}

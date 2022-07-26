@@ -4,8 +4,6 @@ import OwnText from "../../Components/Text/OwnText";
 import { BestSellerData } from "../../Data/BestSellerData";
 import { Colors } from "../../Components/Theme/Color";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
 import { HeaderComponent } from "../../Components/HeaderComponent";
 
