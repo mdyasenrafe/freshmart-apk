@@ -24,6 +24,7 @@ import SignUp from "../Screen/Login/SignUp";
 import { useDispatch, useSelector } from "react-redux";
 import { OnAuthChange } from "../Redux/Action";
 import Category from "../Screen/Home/Category";
+import ProductDetails from "../Screen/Products/ProductDetails";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +39,7 @@ const HomeStackScreen = () => {
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Category" component={Category} />
       <HomeStack.Screen name="Products" component={Products} />
+      <HomeStack.Screen name="ProductDetails" component={ProductDetails} />
       <HomeStack.Screen name="Products/best_seller" component={Products} />
       <HomeStack.Screen name="Products/new_products" component={Products} />
       <HomeStack.Screen
@@ -56,11 +58,12 @@ const ProductStackScreen = () => {
         headerShown: false,
       }}
     >
-      <HomeStack.Screen
+      <ProductStack.Screen
         name="Products"
         initialParams={{ title: "Products", slug: "", category: false }}
         component={Products}
       />
+      <ProductStack.Screen name="ProductDetails" component={ProductDetails} />
     </ProductStack.Navigator>
   );
 };

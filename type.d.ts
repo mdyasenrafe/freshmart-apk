@@ -11,6 +11,7 @@ interface ColorType {
   gray?: string;
   borderColor?: string;
   error: string;
+  textGray?: string;
 }
 
 interface PasswordInputProps {

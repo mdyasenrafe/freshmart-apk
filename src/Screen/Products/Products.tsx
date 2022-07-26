@@ -55,7 +55,7 @@ export default function Products({ navigation, route }: any) {
             <View style={styles.product_area}>
               {products.map((item, index) => (
                 <View key={index} style={{ marginBottom: 16 }}>
-                  <ProductRender item={item} index={item._id} />
+                  <ProductRender item={item} />
                 </View>
               ))}
             </View>

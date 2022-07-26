@@ -1,8 +1,9 @@
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { AntDesign, Fontisto, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
 import { Colors } from "./Theme/Color";
 import OwnText from "./Text/OwnText";
+import { useNavigation } from "@react-navigation/native";
 
 export const ProductRender = ({ item, index }: any) => {
   const handleFavorite = (item: ProductsTypes) => {
@@ -18,8 +19,14 @@ export const ProductRender = ({ item, index }: any) => {
     });
   };
 
+  const navigation: any = useNavigation();
+
   return (
-    <View key={index} style={styles.best_seller}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("ProductDetails", { item })}
+      key={index}
+      style={styles.best_seller}
+    >
       <TouchableOpacity
         onPress={() => handleFavorite(item)}
         style={styles.up_area}
@@ -50,7 +57,7 @@ export const ProductRender = ({ item, index }: any) => {
           <AntDesign name="plus" size={24} color="white" />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

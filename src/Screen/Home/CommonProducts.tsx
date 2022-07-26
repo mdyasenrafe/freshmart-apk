@@ -2,13 +2,14 @@ import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import OwnText from "../../Components/Text/OwnText";
 import { Colors } from "../../Components/Theme/Color";
-import { AntDesign, Fontisto, MaterialIcons } from "@expo/vector-icons";
 import Carousel from "react-native-snap-carousel";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { filterProductAPi } from "../../Api";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
+import Toast from "react-native-toast-message";
 import { ProductRender } from "../../Components/Product.Components";
 
 export default function CommonProducts({
@@ -21,8 +22,11 @@ export default function CommonProducts({
   const sliderWidth = Dimensions.get("window").width;
   const itemWidth = sliderWidth / 2;
   const [products, setProducts] = useState<ProductsTypes[]>([]);
-
   const navigation: any = useNavigation();
+
+  const HelpingProductRender = ({ item, index }: any) => {
+    return <ProductRender item={item} index={index} />;
+  };
 
   useEffect(() => {
     fetchData();
@@ -52,7 +56,7 @@ export default function CommonProducts({
       <View>
         <Carousel
           data={products}
-          renderItem={ProductRender}
+          renderItem={HelpingProductRender}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
           removeClippedSubviews={false}
