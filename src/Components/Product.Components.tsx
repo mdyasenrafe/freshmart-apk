@@ -4,6 +4,8 @@ import Toast from "react-native-toast-message";
 import { Colors } from "./Theme/Color";
 import OwnText from "./Text/OwnText";
 import { useNavigation } from "@react-navigation/native";
+import { addCartApi } from "../Api";
+import { useSelector } from "react-redux";
 
 export const ProductRender = ({ item, index }: any) => {
   const handleFavorite = (item: ProductsTypes) => {
@@ -12,11 +14,33 @@ export const ProductRender = ({ item, index }: any) => {
       text1: "Added to favorite",
     });
   };
-  const handleCart = (item: ProductsTypes) => {
-    Toast.show({
-      type: "success",
-      text1: "Added to cart",
-    });
+
+  const { email } = useSelector((state: any) => state);
+
+  const handleAddCart = async (item: ProductsTypes) => {
+    let addCartBodyData = {
+      userName: email?.user?.name,
+      userEmail: email?.user?.email,
+      userId: email?.user?._id,
+      productId: item._id,
+      productName: item.name,
+      productPrice: item.price,
+      productPhoto: item.photo,
+      productQuantity: 1,
+    };
+
+    const res = await addCartApi(addCartBodyData);
+    if (res.error) {
+      Toast.show({
+        type: "error",
+        text1: res.error,
+      });
+    } else {
+      Toast.show({
+        type: "success",
+        text1: "Added to cart",
+      });
+    }
   };
 
   const navigation: any = useNavigation();
@@ -51,7 +75,7 @@ export const ProductRender = ({ item, index }: any) => {
           $ {item.price}
         </OwnText>
         <TouchableOpacity
-          onPress={() => handleCart(item)}
+          onPress={() => handleAddCart(item)}
           style={styles.plus_area}
         >
           <AntDesign name="plus" size={24} color="white" />
