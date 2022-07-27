@@ -1,8 +1,8 @@
-import banner1 from "../../assets/images/banner/banner_1.png";
-import banner2 from "../../assets/images/banner/banner_2.png";
-import banner3 from "../../assets/images/banner/banner_3.png";
+const banner1 = require("../../assets/images/banner/banner_1.png");
+const banner2 = require("../../assets/images/banner/banner_2.png");
+const banner3 = require("../../assets/images/banner/banner_3.png");
 
-export const BannerData = [
+export const BannerData: BannerDataType[] = [
   {
     title: "Fresh Fish \n& Meat",
     photo: banner1,

@@ -17,7 +17,7 @@ export default function Banner() {
         }
         dot={<View style={[styles.dot, { backgroundColor: Colors.black }]} />}
       >
-        {BannerData.map((item, index) => (
+        {BannerData.map((item: BannerDataType, index: number) => (
           <ImageBackground
             source={item.photo}
             resizeMode="cover"

@@ -15,7 +15,7 @@ import { Colors } from "../../Components/Theme/Color";
 import { Feather } from "@expo/vector-icons";
 import Button from "../../Components/Button";
 import { Input, InputPassword } from "../../Components/Input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   EmailFailAction,
@@ -28,22 +28,22 @@ const validator = require("validator");
 
 export default function Login({ navigation }: { navigation: any }) {
   const [passwordEye, setPassowrdEye] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
+  const [textEmail, setTextEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
   const dispatch: any = useDispatch();
   const handleLogin = (): void => {
-    if (email !== "" && password !== "") {
-      const check = validator.isEmail(email);
+    if (textEmail !== "" && password !== "") {
+      const check = validator.isEmail(textEmail);
       if (check) {
         setEmailError(false);
         setLoading(true);
-        dispatch(EmailSignin(email, password))
+        dispatch(EmailSignin(textEmail, password))
           .then(async (res: any) => {
             setLoading(true);
             let emailSignUpBodyData = {
-              email: email,
+              email: textEmail,
               password: password,
             };
             const response = await signInApi(emailSignUpBodyData);
@@ -64,12 +64,25 @@ export default function Login({ navigation }: { navigation: any }) {
           })
           .catch((err: any) => {
             dispatch(EmailFailAction(err.message));
+            setLoading(false);
+            Toast.show({
+              type: "error",
+              text1: err.message,
+            });
           });
       } else {
         setEmailError(true);
       }
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Please fill all the fields",
+      });
+      setEmailError(false);
     }
   };
+
+  const { email } = useSelector((state: any) => state);
 
   return (
     <ScrollView>
@@ -90,7 +103,7 @@ export default function Login({ navigation }: { navigation: any }) {
               keyboardType="email-address"
               autoCapitalize={"none"}
               placeholder="Email"
-              onChangeText={(e: string) => setEmail(e)}
+              onChangeText={(e: string) => setTextEmail(e)}
               style={{ marginBottom: 16 }}
             />
             {emailError && (

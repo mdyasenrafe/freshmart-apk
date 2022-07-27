@@ -1,14 +1,14 @@
-import babyFood from "../../assets/images/categroy/babyFood.jpg";
-import fresh from "../../assets/images/categroy/meat_fish.jpg";
-import fruit from "../../assets/images/categroy/fruit.jpg";
-import beverages from "../../assets/images/categroy/beverages.jpg";
-import bakery from "../../assets/images/categroy/bakery.jpg";
-import personalCare from "../../assets/images/categroy/personalCare.jpg";
+const babyFood = require("../../assets/images/categroy/babyFood.jpg");
+const fish = require("../../assets/images/categroy/meat_fish.jpg");
+const fruit = require("../../assets/images/categroy/fruit.jpg");
+const beverages = require("../../assets/images/categroy/beverages.jpg");
+const bakery = require("../../assets/images/categroy/bakery.jpg");
+const personalCare = require("../../assets/images/categroy/personalCare.jpg");
 
 export const CategoryData = [
   {
     title: "Fish & Meat",
-    photo: fresh,
+    photo: fish,
     slug: "fish_&_meat",
     color: "#809a6f20",
     borderColor: "#809A6F",

@@ -1,7 +1,6 @@
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { useIsFocused } from "@react-navigation/native";
-import { BestSellerData } from "../../Data/BestSellerData";
 import { Colors } from "../../Components/Theme/Color";
 import { AntDesign } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";

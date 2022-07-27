@@ -58,3 +58,29 @@ interface ProductsTypes {
   price?: number;
   weight?: number;
 }
+
+interface BannerDataType {
+  title: string;
+  photo?: any;
+  slug: string;
+  btnColor?: string;
+  btnTextColor?: string;
+}
+interface GetCartTypes {
+  userId: string;
+}
+interface emailSigninTypes {
+  email: string;
+  password: string;
+}
+
+interface FilterProductType {
+  categroy?: string;
+  slug?: string;
+}
+
+interface UpdateCartType {
+  userId: string;
+  productId: string;
+  productQuantity: number;
+}

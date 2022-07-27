@@ -32,7 +32,7 @@ export const EmailFailAction = (error: any) => {
 
 export const EmailSignUp =
   (email: string, password: string) => (dispatch: any, getState: any) => {
-    dispatch(EmailStartAction());
+    // dispatch(EmailStartAction());
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -59,6 +59,6 @@ export const OnAuthChange = () => (dispatch: any, getState: any) => {
 
 export const EmailSignin =
   (email: string, password: string) => (dispatch: any, getState: any) => {
-    dispatch(EmailStartAction());
+    // dispatch(EmailStartAction());
     return signInWithEmailAndPassword(auth, email, password);
   };
