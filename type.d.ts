@@ -84,3 +84,8 @@ interface UpdateCartType {
   productId: string;
   productQuantity: number;
 }
+
+interface deleteCartDataType {
+  userId: string;
+  productId: string;
+}

@@ -10,6 +10,15 @@ const apiUrl = {
   addCart: "cart/addCart",
   getCart: "cart/getCart",
   updateCart: "cart/update",
+  deleteCart: "cart/delete",
+};
+export const deleteCartApi = async (body: deleteCartDataType) => {
+  try {
+    const res = await axios.post(url + apiUrl.deleteCart, body);
+    return res.data;
+  } catch (err) {
+    console.error({ err });
+  }
 };
 
 export const updateCartApi = async (body: UpdateCartType) => {

@@ -11,7 +11,7 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getCartApi, updateCartApi } from "../../Api";
+import { deleteCartApi, getCartApi, updateCartApi } from "../../Api";
 import { useState } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { HeaderComponent } from "../../Components/HeaderComponent";
@@ -20,13 +20,14 @@ import { LoadingSpinner } from "../../Navigation/Index";
 import { useIsFocused } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import { Colors } from "../../Components/Theme/Color";
-import Button from "../../Components/Button";
+import Button, { Prices } from "../../Components/Button";
 
 export default function Cart() {
   const { email } = useSelector((state: any) => state);
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
   const isFocused = useIsFocused();
+  const [noCart, setNoCart] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
@@ -40,9 +41,34 @@ export default function Cart() {
   const fetchData = async () => {
     setLoading(true);
     const response = await getCartApi({ userId: email?.user?._id });
-    setCart(response.data);
+    if (response?.error == false) {
+      if (response.data.length == 0) {
+        setNoCart(true);
+      } else {
+        setCart(response?.data);
+        setNoCart(false);
+      }
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: response?.message,
+      });
+      setNoCart(true);
+    }
     setLoading(false);
   };
+
+  let sub_total: number = 0;
+  let delivery_fee: number = 0;
+  let total: number = 0;
+  let item: any;
+  for (item of cart) {
+    const result = parseFloat(item?.productPrice) * item?.productQuantity;
+    sub_total += result;
+    delivery_fee += result * 0.1;
+  }
+  total = sub_total + delivery_fee;
 
   const HandleRender = ({ item }: any) => {
     const [quantity, setQuantity] = useState(item?.productQuantity);
@@ -75,7 +101,6 @@ export default function Cart() {
         productId: item?.productId,
         productQuantity: quantity,
       };
-      // console.log(updateCartData);
       const res = await updateCartApi(updateCartData);
       if (res.error === true) {
         Toast.show({
@@ -100,10 +125,32 @@ export default function Cart() {
       }
     };
 
-    const handleDelete = (id: string) => {
-      const newCart = cart.filter((item: any) => item._id !== id);
-      setCart(newCart);
-      setModalVisible(false);
+    const handleDelete = async (id: string) => {
+      let deleteCartData: deleteCartDataType = {
+        userId: email?.user?._id,
+        productId: id,
+      };
+      const res: any = await deleteCartApi(deleteCartData);
+      if (res.error === true) {
+        Toast.show({
+          type: "error",
+          text1: "Something went wrong",
+        });
+        setTimeout(() => {
+          Toast.hide();
+        }, 2000);
+      } else {
+        if (res.data.deletedCount > 0) {
+          fetchData();
+          Toast.show({
+            type: "success",
+            text1: "Item Deleted",
+          });
+          const newCart = cart.filter((item: any) => item._id !== id);
+          setCart(newCart);
+          setModalVisible(false);
+        }
+      }
     };
 
     return (
@@ -204,7 +251,7 @@ export default function Cart() {
                   style={{ borderRadius: 8, width: 78, marginHorizontal: 16 }}
                   title="Yes"
                   onPress={() => {
-                    handleDelete(item._id);
+                    handleDelete(item?.productId);
                   }}
                 />
                 <Button
@@ -234,16 +281,52 @@ export default function Cart() {
       {email?.isLoading || loading ? (
         <LoadingSpinner />
       ) : (
-        <View style={{ flex: 1, marginBottom: 18 }}>
-          <FlatList
-            data={cart}
-            renderItem={helpingRender}
-            keyExtractor={(item: any) => item._id}
-            contentContainerStyle={{
-              paddingVertical: 16,
-            }}
-            extraData={fetchData}
-          />
+        <View style={{ marginBottom: 18 }}>
+          {noCart ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <OwnText preset="bold" style={{ fontSize: 18 }}>
+                No Item in Cart
+              </OwnText>
+            </View>
+          ) : (
+            <>
+              <FlatList
+                data={cart}
+                renderItem={helpingRender}
+                keyExtractor={(item: any) => item._id}
+                contentContainerStyle={{
+                  paddingVertical: 16,
+                }}
+                extraData={fetchData}
+              />
+              <View style={styles.price_area}>
+                <Prices title={"Sub Total"} price={sub_total.toFixed(4)} />
+                <Prices
+                  title={"Delivery Fee"}
+                  price={delivery_fee.toFixed(4)}
+                />
+                <View style={{ borderTopWidth: 0.5, marginBottom: 4 }}></View>
+                <Prices title={"Sub Total"} price={total.toFixed(4)} />
+              </View>
+              {/* bottom fixed */}
+
+              <Button
+                title="Pay"
+                style={{
+                  width: "95%",
+                  height: 48,
+                  borderRadius: 8,
+                  alignSelf: "center",
+                }}
+              />
+            </>
+          )}
         </View>
       )}
     </>
@@ -289,5 +372,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  price_area: {
+    borderTopWidth: 0.5,
+    paddingTop: 16,
+    marginVertical: 20,
   },
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TextStyle, TouchableOpacity } from "react-native";
+import { StyleSheet, TextStyle, TouchableOpacity, View } from "react-native";
 import OwnText from "./Text/OwnText";
 import { Colors } from "./Theme/Color";
 
@@ -21,6 +21,26 @@ export default function Button(props: buttonProps) {
     >
       <OwnText style={{ color: color || Colors.white }}>{title}</OwnText>
     </TouchableOpacity>
+  );
+}
+
+export function Prices({ title, price }: { title: string; price: any }) {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginHorizontal: 16,
+        marginBottom: 8,
+      }}
+    >
+      <OwnText preset="bold" style={{ fontSize: 18 }}>
+        {title}
+      </OwnText>
+      <OwnText preset="bold" style={{ fontSize: 18 }}>
+        ${price}
+      </OwnText>
+    </View>
   );
 }
 
