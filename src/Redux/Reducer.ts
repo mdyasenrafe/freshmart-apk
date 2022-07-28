@@ -6,6 +6,7 @@ const intialState: IState = {
     user: null,
     erorr: null,
   },
+  cart: [],
 };
 
 const emailStart = (state: IState, action: any) => {
@@ -39,6 +40,13 @@ const emailFaill = (state: IState, action: any) => {
   };
 };
 
+const cartReducer = (state: IState, action: any) => {
+  return {
+    ...state,
+    cart: action.cart,
+  };
+};
+
 export const Reduccer = (state: IState = intialState, action: any) => {
   switch (action?.type) {
     case actionTypes.EMAIL_START:
@@ -47,6 +55,8 @@ export const Reduccer = (state: IState = intialState, action: any) => {
       return emailSuccess(state, action);
     case actionTypes.EMAIL_FAILURE:
       return emailFaill(state, action);
+    case actionTypes.CART_DATA:
+      return cartReducer(state, action);
     default:
       return state;
   }

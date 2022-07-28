@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import AuthStore from "./store";
 import Toast from "react-native-toast-message";
 import { LogBox } from "react-native";
+import { StripeProvider } from "@stripe/stripe-react-native";
 
 export default function App() {
   // how to resolve this error ViewPropTypes will be removed from React Native
@@ -29,12 +30,14 @@ export default function App() {
   }
 
   return (
-    <Provider store={AuthStore}>
-      <SafeAreaProvider>
-        <Navigation />
-        <StatusBar />
-        <Toast />
-      </SafeAreaProvider>
-    </Provider>
+    <StripeProvider publishableKey="pk_test_51Jvkj6FkcxhOaq5HgaV9EVYBhC1EMZgKKEzjKBX61uJWQ3UJyDPQonWazo8pBE81bfhkTT8aRo0WnebbGfXxU2eB00yRxiw1NL">
+      <Provider store={AuthStore}>
+        <SafeAreaProvider>
+          <Navigation />
+          <StatusBar />
+          <Toast />
+        </SafeAreaProvider>
+      </Provider>
+    </StripeProvider>
   );
 }

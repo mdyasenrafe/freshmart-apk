@@ -25,6 +25,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { OnAuthChange } from "../Redux/Action";
 import Category from "../Screen/Home/Category";
 import ProductDetails from "../Screen/Products/ProductDetails";
+import Payment from "../Screen/Cart/Payment";
+import Receipt from "../Screen/Cart/Receipt";
 
 const Tab = createBottomTabNavigator();
 
@@ -47,6 +49,8 @@ const HomeStackScreen = () => {
         component={Products}
       />
       <CartStack.Screen name="Cart" component={Cart} />
+      <CartStack.Screen name="Payment" component={Payment} />
+      <CartStack.Screen name="Receipt" component={Receipt} />
     </HomeStack.Navigator>
   );
 };
@@ -66,6 +70,8 @@ const ProductStackScreen = () => {
       />
       <ProductStack.Screen name="ProductDetails" component={ProductDetails} />
       <CartStack.Screen name="Cart" component={Cart} />
+      <CartStack.Screen name="Payment" component={Payment} />
+      <CartStack.Screen name="Receipt" component={Receipt} />
     </ProductStack.Navigator>
   );
 };
@@ -79,6 +85,8 @@ const CartStackScreen = () => {
       }}
     >
       <CartStack.Screen name="Cart" component={Cart} />
+      <CartStack.Screen name="Payment" component={Payment} />
+      <CartStack.Screen name="Receipt" component={Receipt} />
     </CartStack.Navigator>
   );
 };

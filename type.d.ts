@@ -26,8 +26,21 @@ interface emailState {
   erorr: string | null;
 }
 
+interface cartStateType {
+  _id: string;
+  userId: string;
+  productId: string;
+  userName: string;
+  productName: number;
+  productPrice: string;
+  productPhoto: string;
+  productQuantity: number;
+  userEmail: string;
+}
+
 interface IState {
   email: emailState;
+  cart: cartStateType[];
 }
 interface EmailSignUPBodyData {
   name: string;

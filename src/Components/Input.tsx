@@ -6,13 +6,28 @@ import { Feather } from "@expo/vector-icons";
 interface TextInputProps {
   placeholder: string;
   onChangeText?: (text: string) => void;
-  keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
+  keyboardType?:
+    | "default"
+    | "email-address"
+    | "numeric"
+    | "phone-pad"
+    | "visible-password";
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
-  style?: TextStyle;
+  style?: TextStyle | any;
+  value?: string;
+  editable?: boolean;
 }
+
 export function Input(props: TextInputProps) {
-  const { placeholder, autoCapitalize, onChangeText, keyboardType, style } =
-    props;
+  const {
+    placeholder,
+    autoCapitalize,
+    onChangeText,
+    keyboardType,
+    style,
+    value,
+    editable,
+  } = props;
   return (
     <TextInput
       keyboardType={keyboardType}
@@ -21,6 +36,8 @@ export function Input(props: TextInputProps) {
       style={[styles.input, style]}
       placeholder={placeholder}
       placeholderTextColor="black"
+      value={value}
+      editable={editable}
     />
   );
 }

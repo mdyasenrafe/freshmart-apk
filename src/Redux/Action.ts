@@ -29,6 +29,12 @@ export const EmailFailAction = (error: any) => {
     error: error,
   };
 };
+export const CartActionData = (cart: cartStateType[]) => {
+  return {
+    type: actionTypes.CART_DATA,
+    cart: cart,
+  };
+};
 
 export const EmailSignUp =
   (email: string, password: string) => (dispatch: any, getState: any) => {

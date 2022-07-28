@@ -1,3 +1,4 @@
 export const EMAIL_START = "EMAIL_LOGIN_START";
 export const EMAIL_SUCCESS = "EMAIL_LOGIN_SUCCESS";
 export const EMAIL_FAILURE = "EMAIL_LOGIN_FAILURE";
+export const CART_DATA = "CART_DATA";

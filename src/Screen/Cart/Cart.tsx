@@ -6,25 +6,28 @@ import {
   Modal,
   Pressable,
   Dimensions,
+  Alert,
 } from "react-native";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import React from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteCartApi, getCartApi, updateCartApi } from "../../Api";
 import { useState } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { HeaderComponent } from "../../Components/HeaderComponent";
 import OwnText from "../../Components/Text/OwnText";
 import { LoadingSpinner } from "../../Navigation/Index";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import { Colors } from "../../Components/Theme/Color";
 import Button, { Prices } from "../../Components/Button";
+import { CartActionData } from "../../Redux/Action";
+import { useStripe } from "@stripe/stripe-react-native";
 
 export default function Cart() {
   const { email } = useSelector((state: any) => state);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState<cartStateType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const isFocused = useIsFocused();
   const [noCart, setNoCart] = useState<boolean>(false);
@@ -38,6 +41,8 @@ export default function Cart() {
     }
   }, [email?.user?._id, isFocused]);
 
+  const dispatch: any = useDispatch();
+
   const fetchData = async () => {
     setLoading(true);
     const response = await getCartApi({ userId: email?.user?._id });
@@ -46,6 +51,7 @@ export default function Cart() {
         setNoCart(true);
       } else {
         setCart(response?.data);
+        dispatch(CartActionData(response?.data));
         setNoCart(false);
       }
     } else {
@@ -70,11 +76,10 @@ export default function Cart() {
   }
   total = sub_total + delivery_fee;
 
-  const HandleRender = ({ item }: any) => {
+  const HandleRender = ({ item }: { item: cartStateType }) => {
     const [quantity, setQuantity] = useState(item?.productQuantity);
     const [show, setShow] = useState(false);
     const price = parseFloat(item?.productPrice) * quantity;
-
     const handleAdd = () => {
       setQuantity(quantity + 1);
     };
@@ -95,7 +100,7 @@ export default function Cart() {
 
     const [modalVisible, setModalVisible] = useState(false);
 
-    const handleUpdate = async (item: any) => {
+    const handleUpdate = async (item: cartStateType) => {
       let updateCartData: UpdateCartType = {
         userId: item?.userId,
         productId: item?.productId,
@@ -275,6 +280,10 @@ export default function Cart() {
     return <HandleRender item={item} />;
   };
 
+  const navigation: any = useNavigation();
+
+  console.log(noCart);
+
   return (
     <>
       <HeaderComponent routes={"Cart"} />
@@ -282,15 +291,15 @@ export default function Cart() {
         <LoadingSpinner />
       ) : (
         <View style={{ marginBottom: 18 }}>
-          {noCart ? (
+          {noCart === true ? (
             <View
               style={{
-                flex: 1,
+                height: "90%",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <OwnText preset="bold" style={{ fontSize: 18 }}>
+              <OwnText preset="h2" style={{ fontSize: 18 }}>
                 No Item in Cart
               </OwnText>
             </View>
@@ -314,10 +323,12 @@ export default function Cart() {
                 <View style={{ borderTopWidth: 0.5, marginBottom: 4 }}></View>
                 <Prices title={"Sub Total"} price={total.toFixed(4)} />
               </View>
-              {/* bottom fixed */}
-
               <Button
                 title="Pay"
+                onPress={() =>
+                  navigation.navigate("Payment", { totalAmount: total })
+                }
+                // onPress={handlePayment}
                 style={{
                   width: "95%",
                   height: 48,

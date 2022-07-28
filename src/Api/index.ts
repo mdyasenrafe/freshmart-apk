@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const url: string = "https://freshmartapi.herokuapp.com/";
+// const Lurl: string = "http://localhost:8080";
 
 const apiUrl = {
   signUp: "user/signup",
@@ -11,6 +12,26 @@ const apiUrl = {
   getCart: "cart/getCart",
   updateCart: "cart/update",
   deleteCart: "cart/delete",
+  paymentIntent: "payment/pay",
+  paymentAdd: "payment/sucess",
+};
+
+export const paymentAddApi = async (body: any) => {
+  try {
+    const res = await axios.post(url + apiUrl.paymentAdd, body);
+    return res.data;
+  } catch (err) {
+    console.error({ err });
+  }
+};
+
+export const createPaymentIntentApi = async (body: any) => {
+  try {
+    const res = await axios.post(url + apiUrl.paymentIntent, body);
+    return res.data;
+  } catch (err) {
+    console.error({ err });
+  }
 };
 export const deleteCartApi = async (body: deleteCartDataType) => {
   try {
