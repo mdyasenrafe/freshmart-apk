@@ -26,6 +26,10 @@ import Category from "../Screen/Home/Category";
 import ProductDetails from "../Screen/Products/ProductDetails";
 import Payment from "../Screen/Cart/Payment";
 import Receipt from "../Screen/Cart/Receipt";
+import EditProfile from "../Screen/Profile/EditProfile.Screen";
+import History from "../Screen/Profile/History";
+import Favourites from "../Screen/Profile/Favourites";
+import Notification from "../Screen/Profile/Notification";
 
 const Tab = createBottomTabNavigator();
 
@@ -47,9 +51,9 @@ const HomeStackScreen = () => {
         name="Products/trending_products"
         component={Products}
       />
-      <CartStack.Screen name="Cart" component={Cart} />
-      <CartStack.Screen name="Payment" component={Payment} />
-      <CartStack.Screen name="Receipt" component={Receipt} />
+      <HomeStack.Screen name="Cart" component={Cart} />
+      <HomeStack.Screen name="Payment" component={Payment} />
+      <HomeStack.Screen name="Receipt" component={Receipt} />
     </HomeStack.Navigator>
   );
 };
@@ -68,9 +72,9 @@ const ProductStackScreen = () => {
         component={Products}
       />
       <ProductStack.Screen name="ProductDetails" component={ProductDetails} />
-      <CartStack.Screen name="Cart" component={Cart} />
-      <CartStack.Screen name="Payment" component={Payment} />
-      <CartStack.Screen name="Receipt" component={Receipt} />
+      <ProductStack.Screen name="Cart" component={Cart} />
+      <ProductStack.Screen name="Payment" component={Payment} />
+      <ProductStack.Screen name="Receipt" component={Receipt} />
     </ProductStack.Navigator>
   );
 };
@@ -99,6 +103,10 @@ const ProfileStackScreen = () => {
       }}
     >
       <ProfileStack.Screen name="Profile" component={Profile} />
+      <ProfileStack.Screen name="ProfileInformation" component={EditProfile} />
+      <ProfileStack.Screen name="History" component={History} />
+      <ProfileStack.Screen name="Favourites" component={Favourites} />
+      <ProfileStack.Screen name="Notification" component={Notification} />
     </ProductStack.Navigator>
   );
 };

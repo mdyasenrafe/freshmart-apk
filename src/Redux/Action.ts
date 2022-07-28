@@ -5,6 +5,7 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import axios from "axios";
 
@@ -68,3 +69,7 @@ export const EmailSignin =
     // dispatch(EmailStartAction());
     return signInWithEmailAndPassword(auth, email, password);
   };
+
+export const Logout = () => (dispatch: any, getState: any) => {
+  return signOut(auth);
+};
