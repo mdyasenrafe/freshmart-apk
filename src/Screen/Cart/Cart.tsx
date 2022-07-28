@@ -46,6 +46,7 @@ export default function Cart() {
   const fetchData = async () => {
     setLoading(true);
     const response = await getCartApi({ userId: email?.user?._id });
+
     if (response?.error == false) {
       if (response.data.length == 0) {
         setNoCart(true);
@@ -130,10 +131,10 @@ export default function Cart() {
       }
     };
 
-    const handleDelete = async (id: string) => {
+    const handleDelete = async (productId: string, id: string) => {
       let deleteCartData: deleteCartDataType = {
         userId: email?.user?._id,
-        productId: id,
+        productId: productId,
       };
       const res: any = await deleteCartApi(deleteCartData);
       if (res.error === true) {
@@ -145,14 +146,12 @@ export default function Cart() {
           Toast.hide();
         }, 2000);
       } else {
-        if (res.data.deletedCount > 0) {
-          fetchData();
+        if (res.data.modifiedCount > 0) {
           Toast.show({
             type: "success",
             text1: "Item Deleted",
           });
-          const newCart = cart.filter((item: any) => item._id !== id);
-          setCart(newCart);
+          fetchData();
           setModalVisible(false);
         }
       }
@@ -256,7 +255,7 @@ export default function Cart() {
                   style={{ borderRadius: 8, width: 78, marginHorizontal: 16 }}
                   title="Yes"
                   onPress={() => {
-                    handleDelete(item?.productId);
+                    handleDelete(item?.productId, item?._id);
                   }}
                 />
                 <Button
@@ -281,8 +280,6 @@ export default function Cart() {
   };
 
   const navigation: any = useNavigation();
-
-  console.log(noCart);
 
   return (
     <>
