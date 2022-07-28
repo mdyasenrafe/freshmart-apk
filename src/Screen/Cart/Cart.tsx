@@ -220,10 +220,13 @@ export default function Cart() {
               style={{
                 width: 90,
                 height: 36,
-                backgroundColor: Colors.black,
+                backgroundColor: "white",
+                borderColor: Colors.primary,
                 borderRadius: 8,
                 marginHorizontal: 8,
+                borderWidth: 1,
               }}
+              color={"black"}
               onPress={() => {
                 setShow(false);
                 setQuantity(item?.productQuantity);
@@ -311,6 +314,10 @@ export default function Cart() {
                 }}
                 extraData={fetchData}
               />
+
+              <OwnText preset="h5" style={{ padding: 8 }}>
+                Order info
+              </OwnText>
               <View style={styles.price_area}>
                 <Prices title={"Sub Total"} price={sub_total.toFixed(4)} />
                 <Prices
@@ -383,7 +390,6 @@ const styles = StyleSheet.create({
   },
   price_area: {
     borderTopWidth: 0.5,
-    paddingTop: 16,
-    marginVertical: 20,
+    paddingTop: 8,
   },
 });

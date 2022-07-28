@@ -102,3 +102,16 @@ interface deleteCartDataType {
   userId: string;
   productId: string;
 }
+
+interface linkDataType {
+  id: number;
+  link: string;
+  name: string;
+  iconName:
+    | "edit"
+    | "shoppingcart"
+    | "favorite"
+    | "notifications-sharp"
+    | string;
+  iconType: string;
+}
