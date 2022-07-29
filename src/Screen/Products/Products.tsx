@@ -10,10 +10,13 @@ import { useEffect } from "react";
 import { filterProductAPi } from "../../Api";
 import { LoadingSpinner } from "../../Navigation/Index";
 import { ProductRender } from "../../Components/Product.Components";
+import OwnText from "../../Components/Text/OwnText";
 
 export default function Products({ navigation, route }: any) {
   const [products, setProducts] = useState<ProductsTypes[]>([]);
+  const [noProduct, setNoProduct] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const isFocused = useIsFocused();
 
   const slug: string = route.params.slug;
@@ -36,10 +39,17 @@ export default function Products({ navigation, route }: any) {
 
   const fetchData = async () => {
     const response = await filterProductAPi(filterBodyData);
+
     if (response.error) {
     } else {
-      setProducts(response.data);
-      setIsLoading(false);
+      if (response.count === 0) {
+        setNoProduct(true);
+        setIsLoading(false);
+      } else {
+        setProducts(response.data);
+        setNoProduct(false);
+        setIsLoading(false);
+      }
     }
   };
 
@@ -52,11 +62,28 @@ export default function Products({ navigation, route }: any) {
         <ScrollView>
           <View style={{ flex: 1, marginBottom: 24 }}>
             <View style={styles.product_area}>
-              {products.map((item, index) => (
-                <View key={index} style={{ marginBottom: 16 }}>
-                  <ProductRender item={item} />
+              {noProduct ? (
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 100,
+                  }}
+                >
+                  <AntDesign name="frowno" size={50} color={Colors.primary} />
+                  <OwnText
+                    preset="h3"
+                    style={{ marginTop: 20, color: Colors.primary }}
+                  >
+                    No Product Found
+                  </OwnText>
                 </View>
-              ))}
+              ) : (
+                products.map((data, index) => (
+                  <ProductRender key={index} item={data} />
+                ))
+              )}
             </View>
           </View>
         </ScrollView>

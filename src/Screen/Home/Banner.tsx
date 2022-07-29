@@ -5,8 +5,11 @@ import OwnText from "../../Components/Text/OwnText";
 import Button from "../../Components/Button";
 import Swiper from "react-native-swiper";
 import { Colors } from "../../Components/Theme/Color";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Banner() {
+  const navigation: any = useNavigation();
   return (
     <View>
       <Swiper
@@ -26,15 +29,25 @@ export default function Banner() {
           >
             <View style={{ paddingLeft: 5 }}>
               <OwnText preset="h4">{item.title}</OwnText>
-              <Button
-                title="Order Now"
-                color={item.btnTextColor}
-                style={{
-                  backgroundColor: item.btnColor,
-                  borderRadius: 14,
-                  marginTop: 10,
-                }}
-              />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Products", {
+                    slug: item.slug,
+                    title: item.bannerTitle,
+                    category: true,
+                  })
+                }
+              >
+                <Button
+                  title="Order Now"
+                  color={item.btnTextColor}
+                  style={{
+                    backgroundColor: item.btnColor,
+                    borderRadius: 14,
+                    marginTop: 10,
+                  }}
+                />
+              </TouchableOpacity>
             </View>
           </ImageBackground>
         ))}

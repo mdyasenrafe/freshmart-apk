@@ -78,6 +78,7 @@ interface BannerDataType {
   slug: string;
   btnColor?: string;
   btnTextColor?: string;
+  bannerTitle?: string;
 }
 interface GetCartTypes {
   userId: string;
