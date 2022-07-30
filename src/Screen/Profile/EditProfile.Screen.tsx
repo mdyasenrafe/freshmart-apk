@@ -1,11 +1,16 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
 import { HeaderComponent } from "../../Components/HeaderComponent";
 import { ScrollView } from "react-native-gesture-handler";
 import { Input } from "../../Components/Input";
 import OwnText from "../../Components/Text/OwnText";
 import { Colors } from "../../Components/Theme/Color";
 import { Feather } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import { getProfileApi } from "../../Api";
+import EditProfileComponent from "../../Components/EditProfile.Components";
+import { LoadingSpinner } from "../../Navigation/Index";
+import { useIsFocused } from "@react-navigation/native";
 
 const InfoArea = ({ name, value }: { name: string; value: string }) => {
   return (
@@ -16,14 +21,45 @@ const InfoArea = ({ name, value }: { name: string; value: string }) => {
   );
 };
 
-export default function EditProfile() {
-  return (
+export default function EditProfile({ navigation }: { navigation: any }) {
+  const { email } = useSelector((state: any) => state);
+
+  const [profile, setProfile] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (email?.user?.email || isFocused) {
+      setLoading(true);
+      fetchData();
+    }
+  }, [email, isFocused]);
+
+  const bodyData = {
+    email: email?.user?.email,
+  };
+
+  const fetchData = async () => {
+    setLoading(true);
+    const res = await getProfileApi(bodyData);
+    setProfile(res.data);
+    setLoading(false);
+  };
+
+  return loading ? (
+    <LoadingSpinner />
+  ) : !profile?.country ? (
+    <EditProfileComponent />
+  ) : (
     <>
       <HeaderComponent routes="Profile Information" />
 
       <ScrollView>
         <View style={{ margin: 16 }}>
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("EditProfile");
+            }}
             style={{
               flexDirection: "row",
               justifyContent: "flex-end",
@@ -31,7 +67,7 @@ export default function EditProfile() {
           >
             <Feather name={"edit"} size={24} color="black" />
             <OwnText> Edit Profile</OwnText>
-          </View>
+          </TouchableOpacity>
           <View
             style={{
               borderBottomColor: Colors.gray,
@@ -40,12 +76,12 @@ export default function EditProfile() {
               marginTop: 7,
             }}
           ></View>
-          <InfoArea name={"Full Name"} value={"Muhammad Ali"} />
-          <InfoArea name={"Email"} value={"mdyasenrafe@gmail.com"} />
-          <InfoArea name={"Phone Number"} value={"+8801925162902"} />
-          <InfoArea name={"Country"} value={"Bangladesh"} />
-          <InfoArea name={"City"} value={"Chattogram"} />
-          <InfoArea name={"Street Address"} value={"Pahartoli Chattogram"} />
+          <InfoArea name={"Full Name"} value={profile?.name} />
+          <InfoArea name={"Email"} value={profile?.email} />
+          <InfoArea name={"Phone Number"} value={profile?.phoneNumber} />
+          <InfoArea name={"Country"} value={profile?.country} />
+          <InfoArea name={"City"} value={profile?.city} />
+          <InfoArea name={"Street Address"} value={profile?.address} />
         </View>
       </ScrollView>
     </>

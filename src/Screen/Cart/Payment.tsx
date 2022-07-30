@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import OwnText from "../../Components/Text/OwnText";
 import { HeaderComponent } from "../../Components/HeaderComponent";
 import { useSelector } from "react-redux";
 import {
@@ -13,7 +12,11 @@ import { Input } from "../../Components/Input";
 import { Colors } from "../../Components/Theme/Color";
 import Button from "../../Components/Button";
 import Toast from "react-native-toast-message";
-import { createPaymentIntentApi, paymentAddApi } from "../../Api";
+import {
+  createPaymentIntentApi,
+  getProfileApi,
+  paymentAddApi,
+} from "../../Api";
 import { LoadingSpinner } from "../../Navigation/Index";
 import PhoneInput from "react-native-phone-number-input";
 
@@ -30,17 +33,38 @@ interface CardDetailsType {
 }
 
 export default function Payment({ navigation, route }: any) {
+  const [Loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState<any>({});
+  const { email, cart } = useSelector((state: any) => state);
+  useEffect(() => {
+    if (email?.user?.email) {
+      setLoading(true);
+      fetchData();
+    }
+  }, [email]);
+
+  const bodyData = {
+    email: email?.user?.email,
+  };
+
+  const fetchData = async () => {
+    setLoading(true);
+    const res = await getProfileApi(bodyData);
+    setProfile(res.data);
+    setCountry(res.data?.country);
+    setPhoneNumber(res.data?.phoneNumber);
+    setAddress(res.data?.address);
+    setCity(res.data?.city);
+    setLoading(false);
+  };
+
   const totalAmount = route.params.totalAmount;
   const [cardDetails, setCardDetails] = useState<CardDetailsType>();
 
   // const [email, setEmail] = useState();
-  const { email, cart } = useSelector((state: any) => state);
+
   const { confirmPayment, loading } = useConfirmPayment();
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [country, setCountry] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const phoneInput = useRef(null);
+
   let productBodyData = [];
 
   const fetchPaymentIntentClientSecret = async () => {
@@ -53,8 +77,6 @@ export default function Payment({ navigation, route }: any) {
     const response = await createPaymentIntentApi(bodyData);
     return response.clientSecret;
   };
-
-  let status: string = "payment success";
 
   for (const product of cart) {
     productBodyData.push({
@@ -75,7 +97,13 @@ export default function Payment({ navigation, route }: any) {
     paymentId: "",
   };
 
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [country, setCountry] = useState<string>(profile?.country);
+  const [city, setCity] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+
   const handlePay = async () => {
+    console.log(phoneNumber, country, city, address);
     if (phoneNumber != "" && country !== "" && city !== "" && address !== "") {
       if (cardDetails) {
         if (!cardDetails?.complete) {
@@ -158,7 +186,9 @@ export default function Payment({ navigation, route }: any) {
     }
   };
 
-  return (
+  return Loading ? (
+    <LoadingSpinner />
+  ) : (
     <>
       <HeaderComponent routes="Payment" />
       <ScrollView>
@@ -170,23 +200,21 @@ export default function Payment({ navigation, route }: any) {
             style={styles.input}
             editable={false}
           />
-          <PhoneInput
-            ref={phoneInput}
-            defaultValue={phoneNumber}
-            defaultCode="BD"
-            layout="first"
-            autoFocus
-            containerStyle={styles.phoneContainer}
-            textContainerStyle={styles.textInput}
-            onChangeFormattedText={(text) => {
-              setPhoneNumber(text);
-            }}
+          <Input
+            placeholder="Phone Number"
+            style={styles.input}
+            value={profile?.phoneNumber}
+            onChangeText={(text) => setPhoneNumber(text)}
           />
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
           >
             <Input
               placeholder="Country"
+              value={profile?.country}
               style={[styles.input, { width: "45%" }]}
               onChangeText={(text: string) => setCountry(text)}
             />
@@ -194,6 +222,7 @@ export default function Payment({ navigation, route }: any) {
               onChangeText={(text: string) => setCity(text)}
               placeholder="City"
               style={[styles.input, { width: "45%" }]}
+              value={profile?.city}
             />
           </View>
 
@@ -201,6 +230,7 @@ export default function Payment({ navigation, route }: any) {
             onChangeText={(text: string) => setAddress(text)}
             placeholder="Street Address"
             style={styles.input}
+            value={profile?.address}
           />
           <CardField
             postalCodeEnabled={true}
@@ -251,6 +281,7 @@ const styles = StyleSheet.create({
     marginVertical: 24,
     borderRadius: 8,
     width: "95%",
+    alignSelf: "center",
   },
   phoneContainer: {
     backgroundColor: "#efefef",

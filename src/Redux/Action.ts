@@ -8,6 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 import axios from "axios";
+import { getProfileApi } from "../Api";
 
 firebaseInitAuth();
 const auth = getAuth();
@@ -37,6 +38,26 @@ export const CartActionData = (cart: cartStateType[]) => {
   };
 };
 
+export const ProfileStartAction = () => {
+  return {
+    type: actionTypes.PROFILE_START,
+  };
+};
+export const ProfileSuccessAction = (user: any) => {
+  return {
+    type: actionTypes.PROFILE_SUCCESS,
+    user: user,
+  };
+};
+
+export const ProfileFailAction = (error: any) => {
+  return {
+    type: actionTypes.PROFILE_FAILURE,
+    user: null,
+    error: error,
+  };
+};
+
 export const EmailSignUp =
   (email: string, password: string) => (dispatch: any, getState: any) => {
     // dispatch(EmailStartAction());
@@ -52,7 +73,7 @@ export const OnAuthChange = () => (dispatch: any, getState: any) => {
         .post(url, {
           email: user.email,
         })
-        .then((res: any) => {
+        .then(async (res: any) => {
           dispatch(EmailSuccessAction(res.data.data));
         })
         .catch((err: any) => {

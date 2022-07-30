@@ -5,8 +5,11 @@ import Category from "./Category";
 import Banner from "./Banner";
 import CommonProducts from "./CommonProducts";
 import { HeaderComponent } from "../../Components/HeaderComponent";
+import { useSelector } from "react-redux";
+import EditProfileComponent from "../../Components/EditProfile.Components";
 
 export default function Home({ navigation }: any) {
+  const { profile } = useSelector((state: any) => state);
   return (
     <>
       <HeaderComponent navigatation={navigation} routes={"Home"} />

@@ -38,9 +38,29 @@ interface cartStateType {
   userEmail: string;
 }
 
+interface profileStateType {
+  __v: number;
+  _id: string;
+  address: string;
+  city: string;
+  country: string;
+  createAt: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  photoUrl: string;
+}
+
+interface ProfileIntialSTate {
+  isLoading: boolean;
+  user: profileStateType | null;
+  erorr: string | null;
+}
+
 interface IState {
   email: emailState;
   cart: cartStateType[];
+  profile: ProfileIntialSTate;
 }
 interface EmailSignUPBodyData {
   name: string;
@@ -115,4 +135,8 @@ interface linkDataType {
     | "notifications-sharp"
     | string;
   iconType: string;
+}
+
+interface getProfileType {
+  email: string;
 }

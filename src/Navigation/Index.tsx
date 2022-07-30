@@ -30,6 +30,7 @@ import EditProfile from "../Screen/Profile/EditProfile.Screen";
 import History from "../Screen/Profile/History";
 import Favourites from "../Screen/Profile/Favourites";
 import Notification from "../Screen/Profile/Notification";
+import EditProfileComponent from "../Components/EditProfile.Components";
 
 const Tab = createBottomTabNavigator();
 
@@ -104,9 +105,26 @@ const ProfileStackScreen = () => {
     >
       <ProfileStack.Screen name="Profile" component={Profile} />
       <ProfileStack.Screen name="ProfileInformation" component={EditProfile} />
+      <ProfileStack.Screen
+        name="EditProfile"
+        component={EditProfileComponent}
+      />
       <ProfileStack.Screen name="History" component={History} />
       <ProfileStack.Screen name="Favourites" component={Favourites} />
       <ProfileStack.Screen name="Notification" component={Notification} />
+      <ProfileStack.Screen name="Home" component={Home} />
+      <ProfileStack.Screen name="Category" component={Category} />
+      <ProfileStack.Screen name="Products" component={Products} />
+      <ProfileStack.Screen name="ProductDetails" component={ProductDetails} />
+      <ProfileStack.Screen name="Products/best_seller" component={Products} />
+      <ProfileStack.Screen name="Products/new_products" component={Products} />
+      <ProfileStack.Screen
+        name="Products/trending_products"
+        component={Products}
+      />
+      <ProfileStack.Screen name="Cart" component={Cart} />
+      <ProfileStack.Screen name="Payment" component={Payment} />
+      <ProfileStack.Screen name="Receipt" component={Receipt} />
     </ProductStack.Navigator>
   );
 };
@@ -181,7 +199,7 @@ export default function Navigation() {
   };
   const dispatch: any = useDispatch();
 
-  const { email } = useSelector((state: any) => state);
+  const { email, profile } = useSelector((state: any) => state);
 
   useEffect(() => {
     dispatch(OnAuthChange());
@@ -276,6 +294,10 @@ export default function Navigation() {
               <stack.Screen name="start" component={StartScreen} />
               <stack.Screen name="Login" component={Login} />
               <stack.Screen name="Signup" component={SignUp} />
+              <stack.Screen
+                name="EditProfile"
+                component={EditProfileComponent}
+              />
             </stack.Navigator>
           </>
         )}

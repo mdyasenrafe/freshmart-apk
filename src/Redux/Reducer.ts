@@ -6,6 +6,11 @@ const intialState: IState = {
     user: null,
     erorr: null,
   },
+  profile: {
+    isLoading: false,
+    user: null,
+    erorr: null,
+  },
   cart: [],
 };
 
@@ -47,6 +52,37 @@ const cartReducer = (state: IState, action: any) => {
   };
 };
 
+const ProfileStart = (state: IState, action: any) => {
+  return {
+    ...state,
+    profile: {
+      isLoading: true,
+      user: null,
+      error: null,
+    },
+  };
+};
+const ProfileSuccess = (state: IState, action: any) => {
+  return {
+    ...state,
+    profile: {
+      isLoading: false,
+      user: action.user,
+      error: null,
+    },
+  };
+};
+const ProfileFaill = (state: IState, action: any) => {
+  return {
+    ...state,
+    profile: {
+      isLoading: false,
+      user: null,
+      error: action.error,
+    },
+  };
+};
+
 export const Reduccer = (state: IState = intialState, action: any) => {
   switch (action?.type) {
     case actionTypes.EMAIL_START:
@@ -57,6 +93,12 @@ export const Reduccer = (state: IState = intialState, action: any) => {
       return emailFaill(state, action);
     case actionTypes.CART_DATA:
       return cartReducer(state, action);
+    case actionTypes.PROFILE_START:
+      return ProfileStart(state, action);
+    case actionTypes.PROFILE_SUCCESS:
+      return ProfileSuccess(state, action);
+    case actionTypes.PROFILE_FAILURE:
+      return ProfileFaill(state, action);
     default:
       return state;
   }

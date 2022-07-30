@@ -36,7 +36,7 @@ export function Input(props: TextInputProps) {
       style={[styles.input, style]}
       placeholder={placeholder}
       placeholderTextColor="black"
-      value={value}
+      defaultValue={value}
       editable={editable}
     />
   );

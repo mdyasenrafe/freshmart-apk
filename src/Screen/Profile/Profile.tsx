@@ -13,7 +13,11 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import Button from "../../Components/Button";
-import { Logout, EmailSuccessAction } from "../../Redux/Action";
+import {
+  Logout,
+  EmailSuccessAction,
+  ProfileSuccessAction,
+} from "../../Redux/Action";
 
 const linkData: linkDataType[] = [
   {
@@ -55,6 +59,7 @@ export default function Profile({ navigation }: any) {
       .then(() => {
         setModalVisible(false);
         dispatch(EmailSuccessAction(null));
+        dispatch(ProfileSuccessAction(null));
         Toast.show({
           type: "success",
           text1: "Logout successfully",

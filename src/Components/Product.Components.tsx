@@ -4,18 +4,32 @@ import Toast from "react-native-toast-message";
 import { Colors } from "./Theme/Color";
 import OwnText from "./Text/OwnText";
 import { useNavigation } from "@react-navigation/native";
-import { addCartApi } from "../Api";
+import { addCartApi, addFavoriteApi } from "../Api";
 import { useSelector } from "react-redux";
 
 export const ProductRender = ({ item, index }: any) => {
-  const handleFavorite = (item: ProductsTypes) => {
-    Toast.show({
-      type: "success",
-      text1: "Added to favorite",
-    });
-  };
-
   const { email } = useSelector((state: any) => state);
+
+  const handleFavorite = async (item: ProductsTypes) => {
+    let favoriteBodyData = {
+      userName: email?.user?.name,
+      userEmail: email?.user?.email,
+      userId: email?.user?._id,
+      productId: item._id,
+      productName: item.name,
+      productPrice: item.price,
+      productPhoto: item.photo,
+    };
+
+    const res = await addFavoriteApi(favoriteBodyData);
+    if (res?.error == true) {
+    } else {
+      Toast.show({
+        type: "success",
+        text1: "Added to favorite",
+      });
+    }
+  };
 
   const handleAddCart = async (item: ProductsTypes) => {
     let addCartBodyData = {

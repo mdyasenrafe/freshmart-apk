@@ -57,6 +57,7 @@ export default function SignUp({ navigation }: any) {
                 type: "success",
                 text1: "signup successfully",
               });
+              navigation.navigate("EditProfile");
             } else {
               Toast.show({
                 type: "error",

@@ -13,6 +13,7 @@ import Toast from "react-native-toast-message";
 
 export default function ProductDetails({ navigation, route }: any) {
   const productDetails = route?.params?.item;
+  console.log(route.params.item);
   const [quantity, setQuantity] = React.useState(1);
 
   const { email } = useSelector((state: any) => state);
@@ -22,10 +23,10 @@ export default function ProductDetails({ navigation, route }: any) {
       userName: email?.user?.name,
       userEmail: email?.user?.email,
       userId: email?.user?._id,
-      productId: productDetails._id,
-      productName: productDetails.name,
-      productPrice: productDetails.price,
-      productPhoto: productDetails.photo,
+      productId: productDetails?._id,
+      productName: productDetails?.name,
+      productPrice: productDetails?.price,
+      productPhoto: productDetails?.photo,
       productQuantity: quantity,
     };
 
@@ -69,7 +70,7 @@ export default function ProductDetails({ navigation, route }: any) {
         <View style={styles.container}>
           <Image
             source={{
-              uri: productDetails.photo,
+              uri: productDetails?.photo,
             }}
             style={styles.image}
           />
@@ -88,9 +89,9 @@ export default function ProductDetails({ navigation, route }: any) {
           </View>
           <View style={styles.price_area}>
             <View style={{ width: "80%" }}>
-              <OwnText preset="h3">{productDetails.name}</OwnText>
+              <OwnText preset="h3">{productDetails?.name}</OwnText>
             </View>
-            <OwnText preset="h4">${productDetails.price}</OwnText>
+            <OwnText preset="h4">${productDetails?.price}</OwnText>
           </View>
           <OwnText style={{ color: Colors.gray, fontSize: 14 }}>
             Available in stock
@@ -101,7 +102,7 @@ export default function ProductDetails({ navigation, route }: any) {
             <OwnText
               style={{ color: Colors.textGray, fontSize: 14, marginTop: 12 }}
             >
-              {productDetails.description.replace("<br />", `\n`)}
+              {productDetails?.description?.replace("<br />", `\n`)}
             </OwnText>
           </View>
         </View>
@@ -109,7 +110,7 @@ export default function ProductDetails({ navigation, route }: any) {
         <View>
           <CommonProducts
             title={"Related Products"}
-            slug={productDetails.filter}
+            slug={productDetails?.filter}
           />
         </View>
       </ScrollView>
