@@ -15,6 +15,7 @@ const MEDIUM: TextStyle = {
 export const presets = {
   default: BASE,
   bold: BOLD,
+  medium: MEDIUM,
   h1: {
     ...BOLD,
     fontSize: 48,

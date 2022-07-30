@@ -15,12 +15,33 @@ const apiUrl = {
   deleteCart: "cart/delete",
   paymentIntent: "payment/pay",
   paymentAdd: "payment/sucess",
+  paymentGet: "payment/get",
+  paymentBot: "payment/success/bot",
   getProfile: "profile/get",
   updateProfile: "profile/update",
   getFavorite: "favorite/get",
   addFavorite: "favorite/add",
   deleteFavorite: "favorite/delete",
 };
+
+export const paymentGetApi = async (body: any) => {
+  try {
+    const res = await axios.post(url + apiUrl.paymentGet, body);
+    return res.data;
+  } catch (err) {
+    console.error({ err });
+  }
+};
+
+export const paymentBotApi = async () => {
+  try {
+    const res = await axios.post(url + apiUrl.paymentBot);
+    return res.data;
+  } catch (err) {
+    console.error({ err });
+  }
+};
+
 export const getSingleProductApi = async (body: any) => {
   try {
     const res = await axios.post(url + apiUrl.getSingleProduct, body);

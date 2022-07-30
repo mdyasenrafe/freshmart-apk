@@ -17,7 +17,7 @@ export const HeaderComponent = ({ routes }: any) => {
         paddingLeft: 8,
       }}
     >
-      {routes === "Home" ? (
+      {routes === "Home" || routes == "Payment Recipt" ? (
         <View></View>
       ) : (
         <TouchableOpacity

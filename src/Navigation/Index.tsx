@@ -31,6 +31,7 @@ import History from "../Screen/Profile/History";
 import Favourites from "../Screen/Profile/Favourites";
 import Notification from "../Screen/Profile/Notification";
 import EditProfileComponent from "../Components/EditProfile.Components";
+import { paymentBotApi } from "../Api";
 
 const Tab = createBottomTabNavigator();
 
@@ -112,7 +113,6 @@ const ProfileStackScreen = () => {
       <ProfileStack.Screen name="History" component={History} />
       <ProfileStack.Screen name="Favourites" component={Favourites} />
       <ProfileStack.Screen name="Notification" component={Notification} />
-      <ProfileStack.Screen name="Home" component={Home} />
       <ProfileStack.Screen name="Category" component={Category} />
       <ProfileStack.Screen name="Products" component={Products} />
       <ProfileStack.Screen name="ProductDetails" component={ProductDetails} />
@@ -203,11 +203,17 @@ export default function Navigation() {
 
   useEffect(() => {
     dispatch(OnAuthChange());
+    fetchData();
   }, []);
 
   if (email?.isLoading) {
     return <LoadingSpinner />;
   }
+
+  const fetchData = async () => {
+    const res = await paymentBotApi();
+    console.log(res);
+  };
 
   return (
     <>

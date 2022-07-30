@@ -14,6 +14,8 @@ import AuthStore from "./store";
 import Toast from "react-native-toast-message";
 import { LogBox } from "react-native";
 import { StripeProvider } from "@stripe/stripe-react-native";
+import { useEffect } from "react";
+import { paymentBotApi } from "./src/Api";
 
 export default function App() {
   // how to resolve this error ViewPropTypes will be removed from React Native
